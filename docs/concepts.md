@@ -8,7 +8,7 @@ Claude Code reads instruction files called CLAUDE.md at multiple levels. Each le
 - Your personal preferences and principles
 - Applies to ALL projects and workspaces
 - Contains: coding style, investigation protocol, workflow preferences
-- Created by /setup from the template
+- Created by /init-meos from the template
 
 ### Workspace (your-workspace/CLAUDE.md)
 - Instructions specific to this workspace
@@ -49,12 +49,12 @@ Agents are triggered automatically by Claude when relevant, or you can reference
 
 ## Skills
 
-Skills are slash commands (like /setup and /assist) that provide structured workflows. Each skill lives in ~/.claude/skills/name/SKILL.md.
+Skills are slash commands (like /init-meos and /meos) that provide structured workflows. Each skill lives in ~/.claude/skills/name/SKILL.md.
 
 ### Included Skills
 
-- `/setup` - One-time workspace configuration wizard
-- `/assist` - Daily workflow assistant (start, status, daily, eod, new-project)
+- `/init-meos` - One-time workspace configuration wizard
+- `/meos` - Daily workflow assistant (start, status, daily, eod, new-project)
 
 ### How Skills Differ from Agents
 
@@ -87,7 +87,7 @@ The daily note workflow is a core pattern:
 2. **During day** - Update notes, check off tasks, capture ideas
 3. **End of day** - Reflect on what worked, set tomorrow's priority
 
-Notes live in workspace/notes/daily/YYYY-MM-DD.md and are scanned by /assist start for continuity.
+Notes live in workspace/notes/daily/YYYY-MM-DD.md and are scanned by /meos start for continuity.
 
 ## Projects
 

@@ -1,6 +1,6 @@
 # Claude MEOS — My Extensible Operating System
 
-Your personal OS, powered by Claude Code. Clone, run `/setup`, and Claude becomes your active work partner — managing projects, tracking daily notes, running code reviews, and keeping you focused.
+Your personal OS, powered by Claude Code. Clone, run `/init-meos`, and Claude becomes your active work partner — managing projects, tracking daily notes, running code reviews, and keeping you focused.
 
 **Built for Claude Code beginners** who want a structured workspace without configuring everything from scratch.
 
@@ -12,8 +12,8 @@ Your personal OS, powered by Claude Code. Clone, run `/setup`, and Claude become
 - Quick capture for ideas, links, and meeting notes
 
 **Claude Config** — pre-built agents and skills:
-- `/assist` command — session start, daily notes, project status, end-of-day reflection
-- `/find-skill` — search and install skills from [skills.sh](https://skills.sh)
+- `/meos` command — session start, daily notes, project status, end-of-day reflection
+- `/meos-find-skill` — search and install skills from [skills.sh](https://skills.sh)
 - 8 agents — research orchestrator, code review team, build/lint/execute runners
 - 4-layer memory — CLAUDE.md instructions, MEMORY.md quick ref, lessons.md for mistakes, QMD for deep search
 
@@ -26,10 +26,10 @@ cd claude-meos
 
 # 2. Run setup — skills work instantly, no copying needed
 claude
-# Then type: /setup
+# Then type: /init-meos
 ```
 
-The `/setup` wizard will:
+The `/init-meos` wizard will:
 1. Ask your name, workspace path, and code directory
 2. Create workspace folders and generate your CLAUDE.md files
 3. Install agents and skills to `~/.claude/` (for global access)
@@ -49,14 +49,14 @@ claude
 
 | Command | What it does |
 |---------|-------------|
-| `/assist start` | Morning kickoff — shows what's pending, asks what to focus on |
-| `/assist daily` | Creates today's daily note from template |
-| `/assist status` | Quick table of all projects and their top tasks |
-| `/assist eod` | Evening reflection — planned vs done, set tomorrow's priority |
-| `/assist new-project` | Create a new project with CLAUDE.md |
-| `/find-skill` | Search and install skills from [skills.sh](https://skills.sh) |
-| `/find-skill search <q>` | Search skills by keyword |
-| `/find-skill install <repo>` | Install a skill from GitHub |
+| `/meos start` | Morning kickoff — shows what's pending, asks what to focus on |
+| `/meos daily` | Creates today's daily note from template |
+| `/meos status` | Quick table of all projects and their top tasks |
+| `/meos eod` | Evening reflection — planned vs done, set tomorrow's priority |
+| `/meos new-project` | Create a new project with CLAUDE.md |
+| `/meos-find-skill` | Search and install skills from [skills.sh](https://skills.sh) |
+| `/meos-find-skill search <q>` | Search skills by keyword |
+| `/meos-find-skill install <repo>` | Install a skill from GitHub |
 
 ### Code Review
 
@@ -105,20 +105,20 @@ When working in a code repo, Claude automatically uses the review agents:
 ```
 claude-meos/                         # Clone this repo
   .claude/skills/                    # Skills work instantly — no copy needed
-    setup/SKILL.md                   # /setup wizard
-    assist/SKILL.md                  # /assist daily workflow
-    find-skill/SKILL.md              # /find-skill from skills.sh
+    setup/SKILL.md                   # /init-meos wizard
+    assist/SKILL.md                  # /meos daily workflow
+    find-skill/SKILL.md              # /meos-find-skill from skills.sh
   workspace/                         # Template for your workspace
   claude-config/                     # Agents, references, settings
   docs/                              # Documentation
 
-your-workspace/                      # Created by /setup
+your-workspace/                      # Created by /init-meos
   CLAUDE.md                          # Workspace instructions
   projects/my-project/CLAUDE.md      # Per-project status & tasks
   notes/daily/                       # YYYY-MM-DD.md daily notes
   templates/                         # Note templates
 
-~/.claude/                           # Installed globally by /setup
+~/.claude/                           # Installed globally by /init-meos
   CLAUDE.md                          # Global instructions
   agents/                            # Research, review, command agents
   skills/                            # Skills (also available globally)

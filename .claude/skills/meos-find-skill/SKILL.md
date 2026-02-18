@@ -1,16 +1,16 @@
 ---
-name: find-skill
+name: meos-find-skill
 version: 1.0.0
 description: |
   Search and install skills from skills.sh into Claude Code.
   Browse the open agent skills ecosystem, preview skills before installing.
 
   Usage:
-    /find-skill                  - Browse popular skills
-    /find-skill search <query>   - Search for skills by keyword
-    /find-skill install <repo>   - Install a skill from GitHub
-    /find-skill list             - Show installed skills
-    /find-skill update           - Update all installed skills
+    /meos-find-skill                  - Browse popular skills
+    /meos-find-skill search <query>   - Search for skills by keyword
+    /meos-find-skill install <repo>   - Install a skill from GitHub
+    /meos-find-skill list             - Show installed skills
+    /meos-find-skill update           - Update all installed skills
 
 allowed-tools:
   - Bash
@@ -19,7 +19,7 @@ allowed-tools:
   - AskUserQuestion
 ---
 
-# /find-skill — Skills.sh Browser & Installer
+# /meos-find-skill — Skills.sh Browser & Installer
 
 **Search, preview, and install skills from [skills.sh](https://skills.sh) into Claude Code.**
 
@@ -190,19 +190,19 @@ Report what was updated.
 If command is "help":
 
 ```
-/find-skill — Search & install skills from skills.sh
+/meos-find-skill — Search & install skills from skills.sh
 
 Commands:
-  /find-skill                    Browse popular skills
-  /find-skill search <query>     Search for skills
-  /find-skill install <repo>     Install from GitHub (e.g., vercel-labs/skills)
-  /find-skill list               Show installed skills
-  /find-skill update             Update all skills
+  /meos-find-skill                    Browse popular skills
+  /meos-find-skill search <query>     Search for skills
+  /meos-find-skill install <repo>     Install from GitHub (e.g., vercel-labs/skills)
+  /meos-find-skill list               Show installed skills
+  /meos-find-skill update             Update all skills
 
 Examples:
-  /find-skill search "docker"
-  /find-skill install vercel-labs/skills
-  /find-skill list
+  /meos-find-skill search "docker"
+  /meos-find-skill install vercel-labs/skills
+  /meos-find-skill list
 
 Skills are installed via npx skills (skills.sh CLI).
 Browse all skills at https://skills.sh

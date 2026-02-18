@@ -26,7 +26,7 @@ claude
 Then run the setup wizard:
 
 ```
-/setup
+/init-meos
 ```
 
 The wizard will:
@@ -51,7 +51,7 @@ claude
 
 Start your session:
 ```
-/assist start
+/meos start
 ```
 
 This scans your daily notes and projects, shows pending items, and asks what you want to focus on.
@@ -59,7 +59,7 @@ This scans your daily notes and projects, shows pending items, and asks what you
 ## Step 6: Create Your First Project
 
 ```
-/assist new-project my-first-project
+/meos new-project my-first-project
 ```
 
 Claude will ask for the project's purpose, mode, and optional code repo path, then create the project structure.
@@ -68,7 +68,7 @@ Claude will ask for the project's purpose, mode, and optional code repo path, th
 
 **Morning:**
 ```
-/assist daily
+/meos daily
 ```
 Creates today's daily note from template and asks for your priorities.
 
@@ -76,7 +76,7 @@ Creates today's daily note from template and asks for your priorities.
 
 **End of day:**
 ```
-/assist eod
+/meos eod
 ```
 Reviews your task completion, guides you through reflection, and sets tomorrow's priority.
 
@@ -86,7 +86,7 @@ Reviews your task completion, guides you through reflection, and sets tomorrow's
 Make sure you're running Claude Code from within your workspace directory, or that ~/workspace exists.
 
 ### Agents not available
-Verify agents were copied to ~/.claude/agents/. Re-run /setup if needed.
+Verify agents were copied to ~/.claude/agents/. Re-run /init-meos if needed.
 
 ### QMD not working
 1. Check installation: `which qmd`

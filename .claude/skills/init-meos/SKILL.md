@@ -1,12 +1,12 @@
 ---
-name: setup
+name: init-meos
 version: 1.0.0
 description: |
   First-time setup wizard for Claude MEOS.
   Creates your workspace, configures Claude, and installs agents and skills.
 
   Usage:
-    /setup              - Run the interactive setup wizard
+    /init-meos           - Run the interactive setup wizard
 
 allowed-tools:
   - Read
@@ -142,15 +142,15 @@ For each: Read source, Write to destination. Skip if destination already exists 
 Copy skills from the repo's `.claude/skills/` to `~/.claude/skills/` so they work in any project:
 
 ```bash
-mkdir -p ~/.claude/skills/setup
-mkdir -p ~/.claude/skills/assist
-mkdir -p ~/.claude/skills/find-skill
+mkdir -p ~/.claude/skills/init-meos
+mkdir -p ~/.claude/skills/meos
+mkdir -p ~/.claude/skills/meos-find-skill
 ```
 
 Copy:
-1. `[KIT_REPO]/.claude/skills/setup/SKILL.md` → `~/.claude/skills/setup/SKILL.md`
-2. `[KIT_REPO]/.claude/skills/assist/SKILL.md` → `~/.claude/skills/assist/SKILL.md`
-3. `[KIT_REPO]/.claude/skills/find-skill/SKILL.md` → `~/.claude/skills/find-skill/SKILL.md`
+1. `[KIT_REPO]/.claude/skills/init-meos/SKILL.md` → `~/.claude/skills/init-meos/SKILL.md`
+2. `[KIT_REPO]/.claude/skills/meos/SKILL.md` → `~/.claude/skills/meos/SKILL.md`
+3. `[KIT_REPO]/.claude/skills/meos-find-skill/SKILL.md` → `~/.claude/skills/meos-find-skill/SKILL.md`
 
 For each: Read source, Write to destination. Skip if destination already exists (report "already exists, skipping").
 
@@ -213,7 +213,7 @@ Use AskUserQuestion:
 "Would you like to create your first project?"
 - Options:
   - "Yes, let's create one"
-  - "No, I'll do it later with /assist new-project"
+  - "No, I'll do it later with /meos new-project"
 
 **If yes:**
 1. Ask project name (validate: no spaces, use hyphens)
@@ -236,15 +236,15 @@ Created:
   Workspace:   [WORKSPACE_PATH]/
   Global config: ~/.claude/CLAUDE.md
   Agents:      ~/.claude/agents/ (4 agents)
-  Skills:      ~/.claude/skills/ (setup, assist, find-skill)
+  Skills:      ~/.claude/skills/ (init-meos, meos, meos-find-skill)
   [QMD:        ~/.config/qmd/index.yml] (if configured)
   [Project:    [WORKSPACE_PATH]/projects/[name]/] (if created)
 
 Next steps:
   1. Open Claude Code in your workspace: cd [WORKSPACE_PATH] && claude
-  2. Try: /assist start
-  3. Create a project: /assist new-project my-project
-  4. Start your day: /assist daily
+  2. Try: /meos start
+  3. Create a project: /meos new-project my-project
+  4. Start your day: /meos daily
 
 Happy building!
 ```

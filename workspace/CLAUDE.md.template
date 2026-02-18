@@ -121,11 +121,11 @@ For projects with code:
 
 | Command | Description |
 |---------|-------------|
-| `/assist start` | Session start - show status, pending tasks, ask focus |
-| `/assist status` | Quick project status table |
-| `/assist daily` | Create/open today's daily note |
-| `/assist eod` | End of day reflection |
-| `/assist new-project` | Create new project structure |
+| `/meos start` | Session start - show status, pending tasks, ask focus |
+| `/meos status` | Quick project status table |
+| `/meos daily` | Create/open today's daily note |
+| `/meos eod` | End of day reflection |
+| `/meos new-project` | Create new project structure |
 
 ---
 
@@ -133,7 +133,7 @@ For projects with code:
 
 | Project | Status | Mode | Code Repo | Focus |
 |---------|--------|------|-----------|-------|
-| (use /assist new-project to add projects) |
+| (use /meos new-project to add projects) |
 
 ---
 

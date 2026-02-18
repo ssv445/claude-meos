@@ -1,16 +1,16 @@
 ---
-name: assist
+name: meos
 version: 1.0.0
 description: |
-  Personal workspace assistant for daily workflows.
+  MEOS — My Extensible Operating System.
   Manages session start, project status, daily notes, reflections, and project creation.
 
   Usage:
-    /assist start          - Session initialization
-    /assist status         - Quick project status table
-    /assist daily          - Create/open today's daily note
-    /assist eod            - End of day reflection
-    /assist new-project    - Create new project structure
+    /meos start          - Session initialization
+    /meos status         - Quick project status table
+    /meos daily          - Create/open today's daily note
+    /meos eod            - End of day reflection
+    /meos new-project    - Create new project structure
 
 allowed-tools:
   - Read
@@ -22,7 +22,7 @@ allowed-tools:
   - AskUserQuestion
 ---
 
-# Assist - Personal Workspace Assistant
+# MEOS — Personal Workspace Assistant
 
 **Daily workflow management: session start, project tracking, daily notes, reflections.**
 
@@ -52,7 +52,7 @@ Before any command, locate the workspace:
 
 4. **Store as [WORKSPACE]** for all file paths below.
 
-**If not found:** Report "Could not locate workspace. Run /setup first or navigate to your workspace directory."
+**If not found:** Report "Could not locate workspace. Run /init-meos first or navigate to your workspace directory."
 
 ---
 
@@ -135,12 +135,12 @@ If today's daily note doesn't exist: "I notice today's daily note doesn't exist 
 
 **Create or open today's daily note**
 
-1. Calculate: `date +%Y-%m-%d` → [TODAY], `date +%A` → [DAY]
+1. Calculate: `date +%Y-%m-%d` -> [TODAY], `date +%A` -> [DAY]
 2. Check: `[WORKSPACE]/notes/daily/[TODAY].md`
 3. **If exists:** Show content, say "Here's today's note. What would you like to update?"
 4. **If not exists:**
    - Read template: `[WORKSPACE]/templates/morning-start.md` (fallback: `daily-note.md`)
-   - Replace `{{DATE}}` → [TODAY], `{{DAY}}` → [DAY]
+   - Replace `{{DATE}}` -> [TODAY], `{{DAY}}` -> [DAY]
    - Write to `[WORKSPACE]/notes/daily/[TODAY].md`
    - Show the new note
    - Ask: "What are your top 3 priorities for today?"
@@ -153,7 +153,7 @@ If today's daily note doesn't exist: "I notice today's daily note doesn't exist 
 
 1. Calculate today's date
 2. Read `[WORKSPACE]/notes/daily/[TODAY].md`
-   - If doesn't exist: "No daily note found. Run `/assist daily` first."
+   - If doesn't exist: "No daily note found. Run `/meos daily` first."
 3. Count: `- [ ]` (incomplete) vs `- [x]` (complete)
    - Show: "You completed X of Y tasks today"
 4. Interactive reflection (AskUserQuestion):
@@ -209,17 +209,17 @@ If today's daily note doesn't exist: "I notice today's daily note doesn't exist 
 If no command provided:
 
 ```
-Assist - Personal Workspace Assistant
+MEOS — My Extensible Operating System
 
 Commands:
-  /assist start          - Session start with status overview
-  /assist status         - Quick project status table
-  /assist daily          - Create/open today's daily note
-  /assist eod            - End of day reflection
-  /assist new-project    - Create new project (requires name)
+  /meos start          - Session start with status overview
+  /meos status         - Quick project status table
+  /meos daily          - Create/open today's daily note
+  /meos eod            - End of day reflection
+  /meos new-project    - Create new project (requires name)
 
 Examples:
-  /assist start
-  /assist daily
-  /assist new-project my-awesome-project
+  /meos start
+  /meos daily
+  /meos new-project my-awesome-project
 ```
