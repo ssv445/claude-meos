@@ -13,7 +13,8 @@ A ready-to-use personal work OS template for Claude Code. Clone, run `/setup`, a
 
 **Claude Config** — pre-built agents and skills:
 - `/assist` command — session start, daily notes, project status, end-of-day reflection
-- 7 agents — research orchestrator, code review team, build/lint/execute runners
+- `/find-skill` — search and install skills from [skills.sh](https://skills.sh)
+- 8 agents — research orchestrator, code review team, build/lint/execute runners
 - 4-layer memory — CLAUDE.md instructions, MEMORY.md quick ref, lessons.md for mistakes, QMD for deep search
 
 ## Quickstart
@@ -57,6 +58,9 @@ claude
 | `/assist status` | Quick table of all projects and their top tasks |
 | `/assist eod` | Evening reflection — planned vs done, set tomorrow's priority |
 | `/assist new-project` | Create a new project with CLAUDE.md |
+| `/find-skill` | Search and install skills from [skills.sh](https://skills.sh) |
+| `/find-skill search <q>` | Search skills by keyword |
+| `/find-skill install <repo>` | Install a skill from GitHub |
 
 ### Code Review
 
