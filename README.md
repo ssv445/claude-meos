@@ -105,9 +105,9 @@ When working in a code repo, Claude automatically uses the review agents:
 ```
 claude-meos/                         # Clone this repo
   .claude/skills/                    # Skills work instantly — no copy needed
-    setup/SKILL.md                   # /init-meos wizard
-    assist/SKILL.md                  # /meos daily workflow
-    find-skill/SKILL.md              # /meos-find-skill from skills.sh
+    init-meos/SKILL.md               # /init-meos wizard
+    meos/SKILL.md                    # /meos daily workflow
+    meos-find-skill/SKILL.md         # /meos-find-skill from skills.sh
   workspace/                         # Template for your workspace
   claude-config/                     # Agents, references, settings
   docs/                              # Documentation
