@@ -15,18 +15,9 @@ cd claude-meos
 
 Or if using as a GitHub template: click "Use this template" and clone your copy.
 
-## Step 2: Copy the Setup Skill
+## Step 2: Run Setup
 
-The `/setup` skill needs to be in your Claude config first:
-
-```bash
-mkdir -p ~/.claude/skills/setup
-cp claude-config/skills/setup/SKILL.md ~/.claude/skills/setup/
-```
-
-## Step 3: Run Setup
-
-Open Claude Code in the cloned directory:
+Open Claude Code in the cloned directory — skills work instantly, no copying needed:
 
 ```bash
 claude

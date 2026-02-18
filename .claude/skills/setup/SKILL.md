@@ -137,16 +137,22 @@ For each: Read source, Write to destination. Skip if destination already exists 
 
 ---
 
-## STEP 9: Install Skills
+## STEP 9: Install Skills Globally
+
+Copy skills from the repo's `.claude/skills/` to `~/.claude/skills/` so they work in any project:
 
 ```bash
 mkdir -p ~/.claude/skills/setup
 mkdir -p ~/.claude/skills/assist
+mkdir -p ~/.claude/skills/find-skill
 ```
 
 Copy:
-1. `[KIT_REPO]/claude-config/skills/setup/SKILL.md` → `~/.claude/skills/setup/SKILL.md`
-2. `[KIT_REPO]/claude-config/skills/assist/SKILL.md` → `~/.claude/skills/assist/SKILL.md`
+1. `[KIT_REPO]/.claude/skills/setup/SKILL.md` → `~/.claude/skills/setup/SKILL.md`
+2. `[KIT_REPO]/.claude/skills/assist/SKILL.md` → `~/.claude/skills/assist/SKILL.md`
+3. `[KIT_REPO]/.claude/skills/find-skill/SKILL.md` → `~/.claude/skills/find-skill/SKILL.md`
+
+For each: Read source, Write to destination. Skip if destination already exists (report "already exists, skipping").
 
 ---
 
@@ -230,7 +236,7 @@ Created:
   Workspace:   [WORKSPACE_PATH]/
   Global config: ~/.claude/CLAUDE.md
   Agents:      ~/.claude/agents/ (4 agents)
-  Skills:      ~/.claude/skills/ (setup, assist)
+  Skills:      ~/.claude/skills/ (setup, assist, find-skill)
   [QMD:        ~/.config/qmd/index.yml] (if configured)
   [Project:    [WORKSPACE_PATH]/projects/[name]/] (if created)
 

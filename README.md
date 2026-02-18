@@ -24,11 +24,7 @@ Your personal OS, powered by Claude Code. Clone, run `/setup`, and Claude become
 git clone https://github.com/ssv445/claude-meos.git
 cd claude-meos
 
-# 2. Copy the setup skill
-mkdir -p ~/.claude/skills/setup
-cp claude-config/skills/setup/SKILL.md ~/.claude/skills/setup/
-
-# 3. Run setup
+# 2. Run setup — skills work instantly, no copying needed
 claude
 # Then type: /setup
 ```
@@ -36,7 +32,7 @@ claude
 The `/setup` wizard will:
 1. Ask your name, workspace path, and code directory
 2. Create workspace folders and generate your CLAUDE.md files
-3. Copy agents and the `/assist` skill to `~/.claude/`
+3. Install agents and skills to `~/.claude/` (for global access)
 4. Optionally configure QMD semantic search
 5. Offer to create your first project
 
@@ -107,23 +103,26 @@ When working in a code repo, Claude automatically uses the review agents:
 ### Folder Structure
 
 ```
-your-workspace/
-  CLAUDE.md                    # Workspace instructions
-  projects/
-    my-project/
-      CLAUDE.md                # Project status, tasks, how Claude helps
-      meetings/                # Project meeting notes
-  notes/
-    daily/                     # YYYY-MM-DD.md daily notes
-    captures/                  # Quick thoughts and ideas
-  templates/                   # Note templates
+claude-meos/                         # Clone this repo
+  .claude/skills/                    # Skills work instantly — no copy needed
+    setup/SKILL.md                   # /setup wizard
+    assist/SKILL.md                  # /assist daily workflow
+    find-skill/SKILL.md              # /find-skill from skills.sh
+  workspace/                         # Template for your workspace
+  claude-config/                     # Agents, references, settings
+  docs/                              # Documentation
 
-~/.claude/
-  CLAUDE.md                    # Global instructions
-  agents/                      # Research, review, command agents
-  skills/assist/               # /assist command
-  tasks/lessons.md             # Cross-project learning
-  references/qmd.md            # QMD usage guide
+your-workspace/                      # Created by /setup
+  CLAUDE.md                          # Workspace instructions
+  projects/my-project/CLAUDE.md      # Per-project status & tasks
+  notes/daily/                       # YYYY-MM-DD.md daily notes
+  templates/                         # Note templates
+
+~/.claude/                           # Installed globally by /setup
+  CLAUDE.md                          # Global instructions
+  agents/                            # Research, review, command agents
+  skills/                            # Skills (also available globally)
+  tasks/lessons.md                   # Cross-project learning
 ```
 
 ## Customization
