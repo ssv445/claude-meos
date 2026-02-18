@@ -125,13 +125,19 @@ Create agent directories and copy files:
 
 ```bash
 mkdir -p ~/.claude/agents/commands
+mkdir -p ~/.claude/agents/review
 ```
 
 Copy each agent:
 1. `[KIT_REPO]/claude-config/agents/team-research.md` → `~/.claude/agents/team-research.md`
 2. `[KIT_REPO]/claude-config/agents/team-review.md` → `~/.claude/agents/team-review.md`
-3. `[KIT_REPO]/claude-config/agents/commands/execute.md` → `~/.claude/agents/commands/execute.md`
-4. `[KIT_REPO]/claude-config/agents/commands/build.md` → `~/.claude/agents/commands/build.md`
+3. `[KIT_REPO]/claude-config/agents/team-debug.md` → `~/.claude/agents/team-debug.md`
+4. `[KIT_REPO]/claude-config/agents/review/code-standards.md` → `~/.claude/agents/review/code-standards.md`
+5. `[KIT_REPO]/claude-config/agents/review/architecture.md` → `~/.claude/agents/review/architecture.md`
+6. `[KIT_REPO]/claude-config/agents/review/error-handling.md` → `~/.claude/agents/review/error-handling.md`
+7. `[KIT_REPO]/claude-config/agents/commands/execute.md` → `~/.claude/agents/commands/execute.md`
+8. `[KIT_REPO]/claude-config/agents/commands/build.md` → `~/.claude/agents/commands/build.md`
+9. `[KIT_REPO]/claude-config/agents/commands/lint.md` → `~/.claude/agents/commands/lint.md`
 
 For each: Read source, Write to destination. Skip if destination already exists (report "already exists, skipping").
 
@@ -235,7 +241,7 @@ Setup complete!
 Created:
   Workspace:   [WORKSPACE_PATH]/
   Global config: ~/.claude/CLAUDE.md
-  Agents:      ~/.claude/agents/ (4 agents)
+  Agents:      ~/.claude/agents/ (9 agents)
   Skills:      ~/.claude/skills/ (init-meos, meos, meos-find-skill)
   [QMD:        ~/.config/qmd/index.yml] (if configured)
   [Project:    [WORKSPACE_PATH]/projects/[name]/] (if created)

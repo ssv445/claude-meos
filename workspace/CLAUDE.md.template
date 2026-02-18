@@ -122,8 +122,9 @@ For projects with code:
 | Command | Description |
 |---------|-------------|
 | `/meos start` | Session start - show status, pending tasks, ask focus |
-| `/meos status` | Quick project status table |
-| `/meos daily` | Create/open today's daily note |
+| `/meos status` | Quick project status table with health scores |
+| `/meos daily` | Create/open today's daily note (carries forward incomplete tasks) |
+| `/meos standup` | Quick standup summary — yesterday/today/blockers |
 | `/meos eod` | End of day reflection |
 | `/meos new-project` | Create new project structure |
 

@@ -36,10 +36,17 @@ Agents are reusable AI personas defined in ~/.claude/agents/. Each agent has:
 **Orchestrators** (coordinate teams of agents):
 - `team-research` - Spawns web + code researchers in parallel, synthesizes findings
 - `team-review` - Spawns code reviewers across multiple dimensions, deduplicates report
+- `team-debug` - Competing-hypothesis bug investigation with parallel investigators
+
+**Reviewers** (specialized code analysis):
+- `review/code-standards` - Naming, formatting, conventions
+- `review/architecture` - SOLID, modularity, design patterns
+- `review/error-handling` - Exceptions, edge cases, logging
 
 **Command Agents** (specialized executors):
 - `commands/execute` - Safe shell command execution with validation
 - `commands/build` - Production build runner with package manager detection
+- `commands/lint` - Linter runner
 
 ### How to Use Agents
 
@@ -65,13 +72,51 @@ Skills are slash commands (like /init-meos and /meos) that provide structured wo
 | Interaction | Often interactive (asks questions) | Usually autonomous |
 | Use case | User-facing workflows | Background or delegated work |
 
-## Memory
+## 4-Layer Memory Architecture
 
-Claude Code has persistent memory at ~/.claude/projects/*/memory/. Key points:
-- MEMORY.md is loaded into every session automatically
-- Claude can create topic-specific memory files
-- Memories persist across conversations
-- Useful for: stable patterns, key decisions, user preferences, recurring solutions
+Claude MEOS uses four layers of memory, each serving a different purpose:
+
+### Layer 1: CLAUDE.md (Instructions)
+- **What:** How Claude should behave — rules, conventions, workflows
+- **Where:** `~/.claude/CLAUDE.md` (global), `workspace/CLAUDE.md`, `projects/*/CLAUDE.md`
+- **When loaded:** Always, automatically, at every session start
+- **Use for:** Coding style, investigation protocols, project-specific behaviors
+
+### Layer 2: MEMORY.md (Quick Reference)
+- **What:** Per-project facts Claude needs to remember across sessions
+- **Where:** `~/.claude/projects/*/memory/MEMORY.md`
+- **When loaded:** Automatically at session start (first 200 lines)
+- **Use for:** Stable patterns, key architectural decisions, user preferences, file paths
+- **Tip:** Keep it concise. Create topic-specific files (e.g., `debugging.md`, `patterns.md`) for details and link from MEMORY.md.
+
+### Layer 3: lessons.md (Mistake Prevention)
+- **What:** Cross-project learning log in Context/Mistake/Rule format
+- **Where:** `~/.claude/tasks/lessons.md`
+- **When loaded:** Referenced when Claude makes corrections or encounters similar patterns
+- **Use for:** Preventing repeated mistakes, capturing debugging insights
+- **Format:**
+  ```
+  ### [Short title]
+  - **Context**: What was happening
+  - **Mistake**: What went wrong
+  - **Rule**: How to prevent it next time
+  ```
+
+### Layer 4: QMD (Deep Semantic Search)
+- **What:** Local search engine that indexes all your notes and projects
+- **Where:** `~/.config/qmd/index.yml` (config), indexed content on disk
+- **When loaded:** On demand — Claude queries it when searching for information
+- **Use for:** Finding notes by topic, searching across all projects, answering "what did I write about X?"
+- **Commands:** `qmd query "topic"` (best quality), `qmd search "term"` (fast keyword)
+
+### How the Layers Work Together
+
+| Need | Layer |
+|------|-------|
+| "Always format code this way" | CLAUDE.md |
+| "The API base URL is X" | MEMORY.md |
+| "Don't use force-push without checking" | lessons.md |
+| "What did I write about authentication?" | QMD |
 
 ## MCP Servers
 

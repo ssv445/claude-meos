@@ -9,6 +9,7 @@ description: |
     /meos start          - Session initialization
     /meos status         - Quick project status table
     /meos daily          - Create/open today's daily note
+    /meos standup        - Quick standup summary
     /meos eod            - End of day reflection
     /meos new-project    - Create new project structure
 
@@ -63,6 +64,7 @@ Parse the first argument:
 - `status` - Quick status check
 - `daily` - Daily note management
 - `eod` - End of day reflection
+- `standup` - Quick standup summary
 - `new-project <name>` - Create new project
 
 **No command:** Show help text.
@@ -90,6 +92,23 @@ Launch these reads simultaneously:
 - Run `git -C [WORKSPACE] log --oneline -10 2>/dev/null`
 
 ### Step 2: Synthesize
+
+**If this is a fresh workspace (no daily notes, no completed tasks, few/no projects):**
+
+Show a welcome message instead of empty sections:
+```
+Welcome to your workspace! Looks like you're just getting started.
+
+Here's what you can do:
+  /meos new-project my-project  - Create your first project
+  /meos daily                   - Start today's daily note
+
+Once you have projects and daily notes, /meos start will show your
+accomplishments, pending tasks, and priorities automatically.
+```
+Then ask: **"What would you like to work on?"**
+
+**Otherwise, show the full status:**
 
 **Recent Accomplishments**
 - Completed tasks from daily notes (lines with `- [x]`)
@@ -121,13 +140,17 @@ If today's daily note doesn't exist: "I notice today's daily note doesn't exist 
 
 1. Glob: `[WORKSPACE]/projects/*/CLAUDE.md`
 2. For each: Read and extract project name (H1), status, first unchecked task
-3. Format as table:
+3. Calculate health score per project:
+   - Count total tasks (`- [ ]` + `- [x]`) and completed tasks (`- [x]`)
+   - Check last updated date from CLAUDE.md
+   - Score: "Good" (active + recent updates + tasks moving), "Stale" (no updates in 7+ days), "Blocked" (has tasks but none completed recently)
+4. Format as table:
 ```
-| Project | Status | Top Task |
-|---------|--------|----------|
+| Project | Status | Health | Top Task |
+|---------|--------|--------|----------|
 ```
-4. Sort: Active first, then Paused, then Passive
-5. Truncate long tasks to 50 chars
+5. Sort: Active first, then Paused, then Passive
+6. Truncate long tasks to 50 chars
 
 ---
 
@@ -141,8 +164,9 @@ If today's daily note doesn't exist: "I notice today's daily note doesn't exist 
 4. **If not exists:**
    - Read template: `[WORKSPACE]/templates/morning-start.md` (fallback: `daily-note.md`)
    - Replace `{{DATE}}` -> [TODAY], `{{DAY}}` -> [DAY]
+   - **Smart Carry-Forward:** Read yesterday's note. Find incomplete tasks (`- [ ]`). If any exist, add them under a "### Carried Forward" section in the new note before the main task section. This ensures nothing falls through the cracks.
    - Write to `[WORKSPACE]/notes/daily/[TODAY].md`
-   - Show the new note
+   - Show the new note (highlight carried-forward items if any)
    - Ask: "What are your top 3 priorities for today?"
 
 ---
@@ -169,6 +193,35 @@ If today's daily note doesn't exist: "I notice today's daily note doesn't exist 
    [response 2]
    ```
    And update "Tomorrow's priority:" line with response 3
+
+---
+
+## COMMAND: standup
+
+**Quick standup summary (yesterday/today/blockers)**
+
+1. Calculate today and yesterday dates
+2. Read yesterday's daily note:
+   - Extract completed tasks (`- [x]`)
+   - Extract incomplete tasks (`- [ ]`)
+3. Read today's daily note (if exists):
+   - Extract focus items and planned tasks
+4. Format standup:
+
+```
+**Yesterday:**
+- [completed items from yesterday's note]
+
+**Today:**
+- [focus items / planned tasks from today's note]
+- [if no today note: "No daily note yet — run /meos daily to plan"]
+
+**Blockers:**
+- [incomplete items carried over from yesterday, if any]
+- [if none: "None"]
+```
+
+5. Keep it concise — this is for quick async standups or team updates.
 
 ---
 
@@ -215,6 +268,7 @@ Commands:
   /meos start          - Session start with status overview
   /meos status         - Quick project status table
   /meos daily          - Create/open today's daily note
+  /meos standup        - Quick standup summary
   /meos eod            - End of day reflection
   /meos new-project    - Create new project (requires name)
 

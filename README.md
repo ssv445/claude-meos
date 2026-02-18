@@ -14,7 +14,7 @@ Your personal OS, powered by Claude Code. Clone, run `/init-meos`, and Claude be
 **Claude Config** — pre-built agents and skills:
 - `/meos` command — session start, daily notes, project status, end-of-day reflection
 - `/meos-find-skill` — search and install skills from [skills.sh](https://skills.sh)
-- 8 agents — research orchestrator, code review team, build/lint/execute runners
+- 9 agents — research, debug, and review orchestrators, build/lint/execute runners
 - 4-layer memory — CLAUDE.md instructions, MEMORY.md quick ref, lessons.md for mistakes, QMD for deep search
 
 ## Quickstart
@@ -50,8 +50,9 @@ claude
 | Command | What it does |
 |---------|-------------|
 | `/meos start` | Morning kickoff — shows what's pending, asks what to focus on |
-| `/meos daily` | Creates today's daily note from template |
-| `/meos status` | Quick table of all projects and their top tasks |
+| `/meos daily` | Creates today's daily note from template (carries forward incomplete tasks) |
+| `/meos status` | Quick table of all projects with health scores and top tasks |
+| `/meos standup` | Quick standup summary — yesterday/today/blockers |
 | `/meos eod` | Evening reflection — planned vs done, set tomorrow's priority |
 | `/meos new-project` | Create a new project with CLAUDE.md |
 | `/meos-find-skill` | Search and install skills from [skills.sh](https://skills.sh) |
@@ -93,6 +94,7 @@ When working in a code repo, Claude automatically uses the review agents:
 |-------|------|-------|---------|
 | team-research | Orchestrator | Sonnet | Parallel web + code research |
 | team-review | Orchestrator | Sonnet | Multi-dimension code review |
+| team-debug | Orchestrator | Sonnet | Competing-hypothesis bug investigation |
 | code-standards | Reviewer | Sonnet | Naming, formatting, conventions |
 | architecture | Reviewer | Sonnet | SOLID, modularity, design patterns |
 | error-handling | Reviewer | Sonnet | Exceptions, edge cases, logging |

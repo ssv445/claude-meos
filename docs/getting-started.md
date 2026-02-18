@@ -38,7 +38,7 @@ The wizard will:
 6. Optionally set up QMD local knowledge base
 7. Optionally create your first project
 
-## Step 4: Open Your Workspace
+## Step 3: Open Your Workspace
 
 Navigate to your new workspace and start Claude Code:
 
@@ -47,7 +47,7 @@ cd ~/workspace  # or wherever you chose
 claude
 ```
 
-## Step 5: Try It Out
+## Step 4: Try It Out
 
 Start your session:
 ```
@@ -56,7 +56,7 @@ Start your session:
 
 This scans your daily notes and projects, shows pending items, and asks what you want to focus on.
 
-## Step 6: Create Your First Project
+## Step 5: Create Your First Project
 
 ```
 /meos new-project my-first-project
