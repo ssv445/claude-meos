@@ -1,0 +1,140 @@
+# {{USER_NAME}}'s Workspace
+
+## About This Workspace
+
+This is my personal operating system for managing work - projects, notes, ideas, and daily workflows. Development projects live in separate repositories; this workspace manages everything around them.
+
+---
+
+## How Claude Should Help
+
+Claude acts as an **active work partner** in this workspace.
+
+### On Session Start
+
+When I open Claude in this project, proactively:
+
+1. **Show recent accomplishments** - Check today's and yesterday's daily notes, list what was completed
+2. **Surface pending items** - Scan project CLAUDE.md files for "Next Tasks", highlight priorities
+3. **Ask what to work on** - "What would you like to focus on today?"
+4. **Check if today is captured** - If no daily note exists, offer to create one
+
+### Status Signals to Check
+
+- Today's daily note in `/notes/daily/`
+- Yesterday's daily note (reflection, tomorrow's priority)
+- Each project's CLAUDE.md for active tasks
+- Recent git commits for activity context
+
+### Ongoing Support
+
+1. **Check current status** - Scan daily notes, project CLAUDE.md files, and recent activity
+2. **Surface actionable items** - List what needs attention today
+3. **Ask what to accomplish** - Guide focus based on priorities
+4. **Help execute** - Draft content, prep materials, track progress
+
+### Plan Mode
+
+- Make plans extremely concise. Sacrifice grammar for brevity.
+- List unresolved questions at end of each plan.
+
+---
+
+## Folder Structure
+
+```
+/{{WORKSPACE_PATH}}/
+  CLAUDE.md                   # This file - central control
+  /projects/                  # One folder per project
+    /project-name/
+      CLAUDE.md               # Project-specific instructions
+      /meetings/              # Meeting notes for this project
+  /notes/
+    /daily/                   # Daily notes (YYYY-MM-DD.md)
+    /captures/                # Quick thoughts and ideas
+  /templates/                 # Reusable templates
+```
+
+---
+
+## Project Management
+
+### Code vs Management Separation
+
+For projects with code:
+- Code repo (separate directory) - everything the project needs to run
+- This workspace's projects/ folder - planning, notes, research, decisions
+- Never mix them. Keeps repos clean and management centralized.
+
+### Creating a New Project
+1. Create folder in `/projects/project-name/`
+2. Add `CLAUDE.md` with: purpose, status, mode, key files, next tasks
+3. If project has code: note the code repo path
+
+### Project Status Values
+- **active** - Currently working on
+- **paused** - On hold temporarily
+- **passive** - Dormant, load context only when needed
+- **completed** - Done, may archive later
+
+### Project Modes
+- **personal** - Private projects
+- **professional** - Work-related
+- **public** - Content meant for sharing
+
+---
+
+## Daily Notes Workflow
+
+### Morning
+1. Create daily note from template
+2. Review yesterday's notes and "tomorrow's priority"
+3. Set today's 3 focus items
+4. List tasks for work/personal/learning
+
+### End of Day
+1. Update task completion status
+2. Write reflection (what went well, what to improve)
+3. Set tomorrow's top priority
+
+---
+
+## Meeting Notes Rules
+
+1. Store in project folder - `/projects/<project>/meetings/`
+2. Multi-project meetings - split content to each project
+3. Naming: `YYYY-MM-DD-topic.md`
+
+---
+
+## Conventions
+
+### Naming
+- Project folders: lowercase with hyphens
+- Daily notes: `YYYY-MM-DD.md`
+- Meeting notes: `YYYY-MM-DD-topic.md`
+- No spaces in file or folder names
+
+---
+
+## Quick Commands
+
+| Command | Description |
+|---------|-------------|
+| `/assist start` | Session start - show status, pending tasks, ask focus |
+| `/assist status` | Quick project status table |
+| `/assist daily` | Create/open today's daily note |
+| `/assist eod` | End of day reflection |
+| `/assist new-project` | Create new project structure |
+
+---
+
+## Projects
+
+| Project | Status | Mode | Code Repo | Focus |
+|---------|--------|------|-----------|-------|
+| (use /assist new-project to add projects) |
+
+---
+
+*Created with [Claude Assist Kit](https://github.com/YOUR_USERNAME/claude-assist-kit)*

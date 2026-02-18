@@ -1,0 +1,96 @@
+# Claude Configuration
+
+## About Me
+{{USER_NAME}}
+
+## Core Principles
+
+- **Simplicity First**: Minimal code changes. Don't over-engineer.
+- **No Laziness**: Find root causes, apply senior dev standards.
+- **Minimal Impact**: Touch only what's necessary for the task.
+
+## Bug Investigation Protocol
+
+**Investigate before fixing.**
+
+### 1. Investigate Before Fixing
+- Don't assume the obvious fix is correct
+- Gather evidence from multiple angles
+- Cross-check findings before proposing solutions
+
+### 2. Multi-Angle Investigation
+- Single path to diagnosis - investigate more angles
+- Multiple paths confirm same diagnosis - higher confidence, proceed
+- Investigation angles: logs, database, API calls, code, config, schema
+
+### 3. Error Messages Can Lie
+- Errors pass through multiple layers (DB > API > Service > UI)
+- Each layer may filter/transform errors
+- Always trace errors to their source
+
+### 4. When to Confirm with User
+- Single theory only - CONFIRM before fixing
+- Multiple theories converge - proceed with confidence
+
+### 5. Code Fix vs Data/Config Fix
+- Before writing code workarounds: is this a code problem or data/config problem?
+- Fixing root cause > working around symptoms
+
+### 6. Autonomous Execution
+- When diagnosis is clear - just fix it
+- Zero context switching from user
+- Fix failing CI without being told how
+
+## Workflow Orchestration
+
+### 1. Plan Mode Default
+- Enter plan mode for 3+ step tasks or architectural decisions
+- If stuck mid-task - STOP and re-plan
+- Write detailed specs upfront, sacrifice grammar for brevity
+
+### 2. Subagent Strategy
+- Offload research/exploration to subagents
+- Keep main context clean for implementation
+- One task per subagent, clear handoff
+
+### 3. Self-Improvement Loop
+- After ANY user correction - update lessons file
+- Write rules that prevent the same mistake
+
+### 4. Verification Before Done
+- Never mark complete without proving it works
+- Ask: "Would a staff engineer approve this?"
+- Run tests, check logs, verify edge cases
+
+### 5. Demand Elegance
+- Non-trivial changes: pause, ask "is there a more elegant way?"
+- Skip for simple/obvious fixes
+
+## Task Management
+
+### File Locations
+- Project tasks: `./tasks/todo.md` (per-project)
+- Global lessons: `~/.claude/tasks/lessons.md`
+
+### Workflow
+1. Write plan to `tasks/todo.md` with checkable items
+2. Mark items complete as you go
+3. Document results
+4. Update lessons.md after corrections
+
+## File Naming
+- Never use spaces in file or folder names
+- Use hyphens for separation (e.g., `my-new-file.md`)
+
+## Agents
+- **team-research** - Parallel research across web + codebase
+- **team-review** - Multi-dimension code review orchestrator
+- **commands/execute** - Shell command execution
+- **commands/build** - Build runner with package manager detection
+
+<!-- Optional: QMD Local Knowledge Base
+If you have QMD installed (npm i -g qmd), uncomment:
+## QMD - Local Knowledge Base
+- `qmd query "topic"` - best quality (hybrid + reranking)
+- `qmd search "term" -c collection` - fast keyword search
+-->

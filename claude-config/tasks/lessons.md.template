@@ -1,0 +1,19 @@
+# Lessons Learned
+
+Cross-project learning log. Claude updates this after user corrections.
+
+Format:
+```
+## [Category]
+
+### [Short title]
+- **Context**: What was happening
+- **Mistake**: What went wrong
+- **Rule**: How to prevent it next time
+```
+
+---
+
+## General
+
+<!-- Lessons will be added here as you work with Claude -->

@@ -1,0 +1,225 @@
+---
+name: assist
+version: 1.0.0
+description: |
+  Personal workspace assistant for daily workflows.
+  Manages session start, project status, daily notes, reflections, and project creation.
+
+  Usage:
+    /assist start          - Session initialization
+    /assist status         - Quick project status table
+    /assist daily          - Create/open today's daily note
+    /assist eod            - End of day reflection
+    /assist new-project    - Create new project structure
+
+allowed-tools:
+  - Read
+  - Write
+  - Edit
+  - Glob
+  - Bash
+  - Task
+  - AskUserQuestion
+---
+
+# Assist - Personal Workspace Assistant
+
+**Daily workflow management: session start, project tracking, daily notes, reflections.**
+
+---
+
+## WORKSPACE DETECTION (RUN FIRST)
+
+Before any command, locate the workspace:
+
+1. **Check current directory:** Look for CLAUDE.md containing "Workspace" or project management sections
+   - Use Bash: `grep -q "How Claude Should Help" CLAUDE.md 2>/dev/null && echo "FOUND" || echo "NOT_FOUND"`
+
+2. **Search upward:**
+   ```bash
+   dir="$PWD"
+   for i in {1..5}; do
+     if [ -f "$dir/CLAUDE.md" ] && grep -q "How Claude Should Help" "$dir/CLAUDE.md" 2>/dev/null; then
+       echo "$dir"
+       exit 0
+     fi
+     dir="$(dirname "$dir")"
+   done
+   echo "NOT_FOUND"
+   ```
+
+3. **Fallback:** Check `~/workspace`
+
+4. **Store as [WORKSPACE]** for all file paths below.
+
+**If not found:** Report "Could not locate workspace. Run /setup first or navigate to your workspace directory."
+
+---
+
+## COMMAND ROUTER
+
+Parse the first argument:
+- `start` - Session initialization
+- `status` - Quick status check
+- `daily` - Daily note management
+- `eod` - End of day reflection
+- `new-project <name>` - Create new project
+
+**No command:** Show help text.
+
+---
+
+## COMMAND: start
+
+**Session initialization**
+
+### Step 1: Gather Context (Parallel)
+
+Launch these reads simultaneously:
+
+**Daily Notes:**
+- Calculate today: `date +%Y-%m-%d`
+- Calculate yesterday: `date -v-1d +%Y-%m-%d` (macOS) or `date -d 'yesterday' +%Y-%m-%d` (Linux)
+- Read both daily notes if they exist
+
+**Project Scans:**
+- Glob for `[WORKSPACE]/projects/*/CLAUDE.md`
+- Read each, extract: project name, status, top pending task (first `- [ ]` item)
+
+**Git Activity:**
+- Run `git -C [WORKSPACE] log --oneline -10 2>/dev/null`
+
+### Step 2: Synthesize
+
+**Recent Accomplishments**
+- Completed tasks from daily notes (lines with `- [x]`)
+- Key commits from git log
+
+**Today's Status**
+- Focus items if set
+- Incomplete tasks carried over
+
+**Pending Priorities**
+```
+| Project | Status | Top Task |
+|---------|--------|----------|
+```
+
+**Tomorrow's Priority** (from yesterday's note, if exists)
+
+### Step 3: Engage
+
+End with: **"What would you like to focus on today?"**
+
+If today's daily note doesn't exist: "I notice today's daily note doesn't exist yet. Would you like me to create it?"
+
+---
+
+## COMMAND: status
+
+**Quick status across all projects**
+
+1. Glob: `[WORKSPACE]/projects/*/CLAUDE.md`
+2. For each: Read and extract project name (H1), status, first unchecked task
+3. Format as table:
+```
+| Project | Status | Top Task |
+|---------|--------|----------|
+```
+4. Sort: Active first, then Paused, then Passive
+5. Truncate long tasks to 50 chars
+
+---
+
+## COMMAND: daily
+
+**Create or open today's daily note**
+
+1. Calculate: `date +%Y-%m-%d` → [TODAY], `date +%A` → [DAY]
+2. Check: `[WORKSPACE]/notes/daily/[TODAY].md`
+3. **If exists:** Show content, say "Here's today's note. What would you like to update?"
+4. **If not exists:**
+   - Read template: `[WORKSPACE]/templates/morning-start.md` (fallback: `daily-note.md`)
+   - Replace `{{DATE}}` → [TODAY], `{{DAY}}` → [DAY]
+   - Write to `[WORKSPACE]/notes/daily/[TODAY].md`
+   - Show the new note
+   - Ask: "What are your top 3 priorities for today?"
+
+---
+
+## COMMAND: eod
+
+**End of day reflection**
+
+1. Calculate today's date
+2. Read `[WORKSPACE]/notes/daily/[TODAY].md`
+   - If doesn't exist: "No daily note found. Run `/assist daily` first."
+3. Count: `- [ ]` (incomplete) vs `- [x]` (complete)
+   - Show: "You completed X of Y tasks today"
+4. Interactive reflection (AskUserQuestion):
+   - "What went well today?"
+   - "What could be improved?"
+   - "What's the top priority for tomorrow?"
+5. Update the note's reflection section:
+   ```markdown
+   ### What Went Well
+   [response 1]
+
+   ### What to Improve
+   [response 2]
+   ```
+   And update "Tomorrow's priority:" line with response 3
+
+---
+
+## COMMAND: new-project
+
+**Create a new project structure**
+
+1. Parse project name from arguments
+   - Validate: no spaces (use hyphens)
+   - If invalid: "Project name cannot contain spaces. Use hyphens: my-project"
+
+2. Check if `[WORKSPACE]/projects/[name]/` already exists
+   - If exists: "Project already exists at [path]"
+
+3. Create directory: `mkdir -p [WORKSPACE]/projects/[name]`
+
+4. Ask for details (AskUserQuestion):
+   - "What is the purpose of this project?"
+   - "What mode?" Options: personal, professional, public
+   - "Code repository path? (or 'none')"
+
+5. Calculate date: `date +%Y-%m-%d`
+
+6. Read project template: `[WORKSPACE]/templates/project-claude-md.md`
+   - Replace placeholders: {{PROJECT_NAME}}, {{PURPOSE}}, {{STATUS}} (Active), {{MODE}}, {{CODE_REPO}}, {{DATE}}
+   - Write to `[WORKSPACE]/projects/[name]/CLAUDE.md`
+
+7. Update `[WORKSPACE]/CLAUDE.md` projects table:
+   - Find the Projects table
+   - Add row: `| [name] | active | [mode] | [code-repo] | [purpose-brief] |`
+
+8. Confirm: "Created project: [name] at [WORKSPACE]/projects/[name]/"
+
+---
+
+## HELP TEXT
+
+If no command provided:
+
+```
+Assist - Personal Workspace Assistant
+
+Commands:
+  /assist start          - Session start with status overview
+  /assist status         - Quick project status table
+  /assist daily          - Create/open today's daily note
+  /assist eod            - End of day reflection
+  /assist new-project    - Create new project (requires name)
+
+Examples:
+  /assist start
+  /assist daily
+  /assist new-project my-awesome-project
+```
