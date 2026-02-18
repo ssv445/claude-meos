@@ -1,6 +1,6 @@
-# Claude Assist Kit
+# Claude MEOS — My Extensible Operating System
 
-A ready-to-use personal work OS template for Claude Code. Clone, run `/setup`, and Claude becomes your active work partner — managing projects, tracking daily notes, running code reviews, and keeping you focused.
+Your personal OS, powered by Claude Code. Clone, run `/setup`, and Claude becomes your active work partner — managing projects, tracking daily notes, running code reviews, and keeping you focused.
 
 **Built for Claude Code beginners** who want a structured workspace without configuring everything from scratch.
 
@@ -21,8 +21,8 @@ A ready-to-use personal work OS template for Claude Code. Clone, run `/setup`, a
 
 ```bash
 # 1. Clone
-git clone https://github.com/ssv445/claude-assist-kit.git
-cd claude-assist-kit
+git clone https://github.com/ssv445/claude-meos.git
+cd claude-meos
 
 # 2. Copy the setup skill
 mkdir -p ~/.claude/skills/setup

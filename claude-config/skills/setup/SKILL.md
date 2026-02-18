@@ -2,7 +2,7 @@
 name: setup
 version: 1.0.0
 description: |
-  First-time setup wizard for Claude Assist Kit.
+  First-time setup wizard for Claude MEOS.
   Creates your workspace, configures Claude, and installs agents and skills.
 
   Usage:
@@ -17,7 +17,7 @@ allowed-tools:
   - Glob
 ---
 
-# Claude Assist Kit - Setup Wizard
+# Claude MEOS - Setup Wizard
 
 **One-time interactive setup that creates your personal workspace and configures Claude Code.**
 
@@ -27,7 +27,7 @@ allowed-tools:
 
 Display:
 ```
-Welcome to Claude Assist Kit!
+Welcome to Claude MEOS!
 
 This setup will:
 1. Create your workspace folder structure
@@ -60,15 +60,15 @@ Use AskUserQuestion for each:
 
 ## STEP 3: Detect Kit Repository
 
-Find where claude-assist-kit templates are:
+Find where claude-meos templates are:
 
 1. Check if current directory contains workspace/CLAUDE.md.template:
    - `ls workspace/CLAUDE.md.template 2>/dev/null`
 2. Check parent directory
-3. Check ~/www/claude-assist-kit/
+3. Check ~/www/claude-meos/
 4. Store found path as [KIT_REPO]
 
-If not found: Report error "Could not find claude-assist-kit templates. Make sure you're running from the cloned repo directory."
+If not found: Report error "Could not find claude-meos templates. Make sure you're running from the cloned repo directory."
 
 ---
 

@@ -9,8 +9,8 @@
 ## Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/ssv445/claude-assist-kit.git
-cd claude-assist-kit
+git clone https://github.com/ssv445/claude-meos.git
+cd claude-meos
 ```
 
 Or if using as a GitHub template: click "Use this template" and clone your copy.
