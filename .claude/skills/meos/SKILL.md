@@ -1,17 +1,19 @@
 ---
 name: meos
-version: 1.0.0
+version: 2.0.0
 description: |
   MEOS — My Extensible Operating System.
-  Manages session start, project status, daily notes, reflections, and project creation.
+  Your personal workspace OS: setup, daily workflow, project tracking, and skill management.
 
   Usage:
-    /meos start          - Session initialization
-    /meos status         - Quick project status table
-    /meos daily          - Create/open today's daily note
-    /meos standup        - Quick standup summary
-    /meos eod            - End of day reflection
-    /meos new-project    - Create new project structure
+    /meos init             - First-time setup wizard
+    /meos start            - Session initialization
+    /meos status           - Quick project status table
+    /meos daily            - Create/open today's daily note
+    /meos standup          - Quick standup summary
+    /meos eod              - End of day reflection
+    /meos new-project      - Create new project structure
+    /meos find-skill       - Browse/search/install skills from skills.sh
 
 allowed-tools:
   - Read
@@ -21,19 +23,36 @@ allowed-tools:
   - Bash
   - Task
   - AskUserQuestion
+  - WebFetch
 ---
 
-# MEOS — Personal Workspace Assistant
+# MEOS — My Extensible Operating System
 
-**Daily workflow management: session start, project tracking, daily notes, reflections.**
+**One skill for everything: setup, daily workflow, project tracking, skill discovery.**
 
 ---
 
-## WORKSPACE DETECTION (RUN FIRST)
+## COMMAND ROUTER
 
-Before any command, locate the workspace:
+Parse the first argument:
+- `init` - First-time setup wizard
+- `start` - Session initialization
+- `status` - Quick status check
+- `daily` - Daily note management
+- `standup` - Quick standup summary
+- `eod` - End of day reflection
+- `new-project <name>` - Create new project
+- `find-skill [subcommand]` - Browse/search/install skills
 
-1. **Check current directory:** Look for CLAUDE.md containing "Workspace" or project management sections
+**No command:** Show help text.
+
+---
+
+## WORKSPACE DETECTION
+
+**For all commands except `init`**, locate the workspace first:
+
+1. **Check current directory:** Look for CLAUDE.md containing workspace sections
    - Use Bash: `grep -q "How Claude Should Help" CLAUDE.md 2>/dev/null && echo "FOUND" || echo "NOT_FOUND"`
 
 2. **Search upward:**
@@ -53,21 +72,193 @@ Before any command, locate the workspace:
 
 4. **Store as [WORKSPACE]** for all file paths below.
 
-**If not found:** Report "Could not locate workspace. Run /init-meos first or navigate to your workspace directory."
+**If not found:** Report "Could not locate workspace. Run `/meos init` first or navigate to your workspace directory."
 
 ---
 
-## COMMAND ROUTER
+## COMMAND: init
 
-Parse the first argument:
-- `start` - Session initialization
-- `status` - Quick status check
-- `daily` - Daily note management
-- `eod` - End of day reflection
-- `standup` - Quick standup summary
-- `new-project <name>` - Create new project
+**One-time interactive setup that creates your personal workspace and configures Claude Code.**
 
-**No command:** Show help text.
+### Step 1: Welcome
+
+Display:
+```
+Welcome to Claude MEOS!
+
+This setup will:
+1. Create your workspace folder structure
+2. Generate personalized CLAUDE.md configuration files
+3. Install the /meos skill globally
+4. Optionally set up QMD local knowledge base
+
+Let's get started.
+```
+
+### Step 2: Gather User Info
+
+Use AskUserQuestion for each:
+
+**Question 1:** "What's your name?"
+- Options: (free text via Other)
+- Store as [USER_NAME]
+
+**Question 2:** "Where should your workspace live?"
+- Options:
+  - "~/workspace" (Recommended)
+  - "Current directory"
+  - Other (custom path)
+- Store as [WORKSPACE_PATH]
+- Expand ~ to full home path using: `echo ~`
+
+### Step 3: Detect Kit Repository
+
+Find where claude-meos templates are:
+
+1. Check if current directory contains workspace/CLAUDE.md.template:
+   - `ls workspace/CLAUDE.md.template 2>/dev/null`
+2. Check parent directory
+3. Check ~/www/claude-meos/
+4. Store found path as [KIT_REPO]
+
+If not found: Report error "Could not find claude-meos templates. Make sure you're running from the cloned repo directory."
+
+### Step 4: Create Workspace Structure
+
+```bash
+mkdir -p [WORKSPACE_PATH]/projects
+mkdir -p [WORKSPACE_PATH]/notes/daily
+mkdir -p [WORKSPACE_PATH]/notes/captures
+mkdir -p [WORKSPACE_PATH]/templates
+```
+
+### Step 5: Generate Workspace CLAUDE.md
+
+1. Read `[KIT_REPO]/workspace/CLAUDE.md.template`
+2. Replace all `{{USER_NAME}}` with [USER_NAME]
+3. Replace all `{{WORKSPACE_PATH}}` with [WORKSPACE_PATH]
+4. Write to `[WORKSPACE_PATH]/CLAUDE.md`
+
+### Step 6: Copy Workspace Templates
+
+Copy template files:
+1. Read `[KIT_REPO]/workspace/templates/daily-note.md` → Write to `[WORKSPACE_PATH]/templates/daily-note.md`
+2. Read `[KIT_REPO]/workspace/templates/morning-start.md` → Write to `[WORKSPACE_PATH]/templates/morning-start.md`
+3. Read `[KIT_REPO]/workspace/templates/project-claude-md.md` → Write to `[WORKSPACE_PATH]/templates/project-claude-md.md`
+
+### Step 7: Set Up Global Claude Config
+
+Use AskUserQuestion:
+"Would you like to set up a global Claude configuration at ~/.claude/CLAUDE.md?"
+- Options:
+  - "Yes, create it" (Recommended)
+  - "No, skip this"
+
+**If yes:**
+1. Check if ~/.claude/CLAUDE.md already exists
+2. If exists: Ask "~/.claude/CLAUDE.md already exists. Overwrite or skip?"
+   - Options: "Overwrite", "Skip"
+3. Read `[KIT_REPO]/claude-config/CLAUDE.md.template`
+4. Replace `{{USER_NAME}}` with [USER_NAME]
+5. Write to `~/.claude/CLAUDE.md`
+
+### Step 8: Install Skill Globally
+
+Copy the meos skill so it works in any project:
+
+```bash
+mkdir -p ~/.claude/skills/meos
+```
+
+Copy:
+- `[KIT_REPO]/.claude/skills/meos/SKILL.md` → `~/.claude/skills/meos/SKILL.md`
+
+Read source, Write to destination. Skip if destination already exists (report "already exists, skipping").
+
+### Step 9: QMD Setup (Optional)
+
+Use AskUserQuestion:
+"Would you like to set up QMD (local knowledge base for searching your notes)?"
+- Options:
+  - "Yes, set it up"
+  - "No, skip for now"
+  - "What is QMD?"
+
+**If "What is QMD?":** Explain: "QMD is a local semantic search engine that indexes your notes and projects. It lets Claude search your workspace content using `qmd query 'topic'`. It requires Node.js." Then re-ask.
+
+**If yes:**
+1. Check if qmd is installed: `which qmd`
+2. If not installed: Run `npm install -g qmd` (confirm with user first)
+3. Create QMD config:
+```bash
+mkdir -p ~/.config/qmd
+```
+4. Write ~/.config/qmd/index.yml:
+```yaml
+collections:
+  notes:
+    path: [WORKSPACE_PATH]/notes
+    patterns: ["**/*.md"]
+  projects:
+    path: [WORKSPACE_PATH]/projects
+    patterns: ["**/*.md"]
+```
+5. Copy QMD reference: `[KIT_REPO]/claude-config/references/qmd.md` → `~/.claude/references/qmd.md`
+
+### Step 10: Update Settings (Optional)
+
+Use AskUserQuestion:
+"Would you like to update ~/.claude/settings.json with recommended settings?"
+- Show what will be added: QMD MCP server (if configured)
+- Options:
+  - "Yes, update settings"
+  - "No, I'll configure manually"
+
+**If yes:**
+1. Read existing ~/.claude/settings.json (if exists)
+2. Merge in:
+   - `mcpServers.qmd` (only if QMD was set up): `{"command": "qmd", "args": ["mcp"]}`
+3. Write back (preserve existing settings)
+4. If file doesn't exist, create with just these settings
+
+### Step 11: Create First Project (Optional)
+
+Use AskUserQuestion:
+"Would you like to create your first project?"
+- Options:
+  - "Yes, let's create one"
+  - "No, I'll do it later with /meos new-project"
+
+**If yes:**
+1. Ask project name (validate: no spaces, use hyphens)
+2. Ask purpose
+3. Ask mode: personal/professional/public
+4. Ask code repo path (or "none")
+5. Create `[WORKSPACE_PATH]/projects/[name]/`
+6. Read project template, replace placeholders, write CLAUDE.md
+7. Update workspace CLAUDE.md projects table
+
+### Step 12: Summary
+
+Display:
+```
+Setup complete!
+
+Created:
+  Workspace:   [WORKSPACE_PATH]/
+  Global config: ~/.claude/CLAUDE.md
+  Skill:       ~/.claude/skills/meos/
+  [QMD:        ~/.config/qmd/index.yml] (if configured)
+  [Project:    [WORKSPACE_PATH]/projects/[name]/] (if created)
+
+Next steps:
+  1. Open Claude Code in your workspace: cd [WORKSPACE_PATH] && claude
+  2. Try: /meos start
+  3. Create a project: /meos new-project my-project
+  4. Start your day: /meos daily
+
+Happy building!
+```
 
 ---
 
@@ -171,31 +362,6 @@ If today's daily note doesn't exist: "I notice today's daily note doesn't exist 
 
 ---
 
-## COMMAND: eod
-
-**End of day reflection**
-
-1. Calculate today's date
-2. Read `[WORKSPACE]/notes/daily/[TODAY].md`
-   - If doesn't exist: "No daily note found. Run `/meos daily` first."
-3. Count: `- [ ]` (incomplete) vs `- [x]` (complete)
-   - Show: "You completed X of Y tasks today"
-4. Interactive reflection (AskUserQuestion):
-   - "What went well today?"
-   - "What could be improved?"
-   - "What's the top priority for tomorrow?"
-5. Update the note's reflection section:
-   ```markdown
-   ### What Went Well
-   [response 1]
-
-   ### What to Improve
-   [response 2]
-   ```
-   And update "Tomorrow's priority:" line with response 3
-
----
-
 ## COMMAND: standup
 
 **Quick standup summary (yesterday/today/blockers)**
@@ -222,6 +388,31 @@ If today's daily note doesn't exist: "I notice today's daily note doesn't exist 
 ```
 
 5. Keep it concise — this is for quick async standups or team updates.
+
+---
+
+## COMMAND: eod
+
+**End of day reflection**
+
+1. Calculate today's date
+2. Read `[WORKSPACE]/notes/daily/[TODAY].md`
+   - If doesn't exist: "No daily note found. Run `/meos daily` first."
+3. Count: `- [ ]` (incomplete) vs `- [x]` (complete)
+   - Show: "You completed X of Y tasks today"
+4. Interactive reflection (AskUserQuestion):
+   - "What went well today?"
+   - "What could be improved?"
+   - "What's the top priority for tomorrow?"
+5. Update the note's reflection section:
+   ```markdown
+   ### What Went Well
+   [response 1]
+
+   ### What to Improve
+   [response 2]
+   ```
+   And update "Tomorrow's priority:" line with response 3
 
 ---
 
@@ -257,6 +448,122 @@ If today's daily note doesn't exist: "I notice today's daily note doesn't exist 
 
 ---
 
+## COMMAND: find-skill
+
+**Browse, search, and install skills from [skills.sh](https://skills.sh)**
+
+### Prerequisite Check
+
+Verify `skills` CLI is available:
+```bash
+npx skills --version 2>/dev/null
+```
+If it fails: "The skills CLI is needed. It runs via npx so no install is required — just ensure you have Node.js/npm installed."
+
+### Subcommand Router
+
+Parse the argument after `find-skill`:
+
+| Subcommand | Action |
+|------------|--------|
+| (none) | Browse popular skills |
+| `search <query>` | Search skills.sh |
+| `install <owner/repo>` | Install a skill |
+| `list` | Show installed skills |
+| `update` | Update all skills |
+
+### find-skill (no args) — Browse Popular
+
+1. Fetch the skills.sh homepage:
+   - Use WebFetch on `https://skills.sh` to get the leaderboard
+   - Extract top 10-15 skills with: name, description, install count, source repo
+
+2. Present as a numbered list:
+   ```
+   Popular skills on skills.sh:
+
+   1. find-skills (vercel-labs/skills) — 257K installs
+      Search and discover agent skills
+   2. best-practices (vercel-labs/skills) — 26K installs
+      Coding best practices for AI agents
+   ...
+   ```
+
+3. Ask user (AskUserQuestion):
+   "Would you like to install any of these?"
+   - Options: "Yes, pick one", "Search for something specific", "No thanks"
+
+4. If "Yes": Ask which number, then run the install flow
+5. If "Search": Ask for search query, then run the search flow
+
+### find-skill search <query>
+
+1. Run the skills CLI search:
+   ```bash
+   npx skills find "<query>" 2>&1 | head -50
+   ```
+
+2. Present results to user with: name, source repo, description
+
+3. Ask user (AskUserQuestion):
+   "Would you like to install any of these?"
+   - Options: list top 3-4 results by name
+
+4. If selected, run the install flow for that skill
+
+### find-skill install <owner/repo>
+
+**Arguments:** GitHub shorthand (e.g., `vercel-labs/skills`) or full URL
+
+**Step 1: Preview the skill**
+1. Fetch the repo to find SKILL.md files:
+   ```bash
+   npx skills add <owner/repo> -a claude-code --list 2>&1
+   ```
+2. Show the user: skill name(s), description, tools used
+
+**Step 2: Choose scope**
+Ask user (AskUserQuestion):
+"Where should this skill be installed?"
+- Options:
+  - "Global (~/.claude/skills/) — available everywhere" (Recommended)
+  - "Project (.claude/skills/) — this project only"
+
+**Step 3: Install**
+```bash
+# Global:
+npx skills add <owner/repo> -a claude-code -g -y
+# Project:
+npx skills add <owner/repo> -a claude-code -y
+```
+
+**Step 4: Verify**
+```bash
+npx skills list -a claude-code 2>&1
+```
+Show what was installed and how to use it.
+
+### find-skill list
+
+```bash
+npx skills list -a claude-code 2>&1
+```
+
+If empty or fails, also check directly:
+```bash
+echo "=== Global skills ===" && ls ~/.claude/skills/ 2>/dev/null
+echo "=== Project skills ===" && ls .claude/skills/ 2>/dev/null
+```
+
+### find-skill update
+
+```bash
+npx skills update -a claude-code -y 2>&1
+```
+Report what was updated.
+
+---
+
 ## HELP TEXT
 
 If no command provided:
@@ -265,15 +572,21 @@ If no command provided:
 MEOS — My Extensible Operating System
 
 Commands:
-  /meos start          - Session start with status overview
-  /meos status         - Quick project status table
-  /meos daily          - Create/open today's daily note
-  /meos standup        - Quick standup summary
-  /meos eod            - End of day reflection
-  /meos new-project    - Create new project (requires name)
+  /meos init             - First-time setup wizard
+  /meos start            - Session start with status overview
+  /meos status           - Quick project status table
+  /meos daily            - Create/open today's daily note
+  /meos standup          - Quick standup summary
+  /meos eod              - End of day reflection
+  /meos new-project      - Create new project (requires name)
+  /meos find-skill       - Browse popular skills from skills.sh
+  /meos find-skill search <q>    - Search for skills
+  /meos find-skill install <r>   - Install from GitHub
 
 Examples:
   /meos start
   /meos daily
   /meos new-project my-awesome-project
+  /meos find-skill search "code review"
+  /meos find-skill install vercel-labs/skills
 ```

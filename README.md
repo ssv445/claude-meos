@@ -1,6 +1,6 @@
 # Claude MEOS — My Extensible Operating System
 
-Your personal OS, powered by Claude Code. Clone, run `/init-meos`, and Claude becomes your active work partner — managing projects, tracking daily notes, running code reviews, and keeping you focused.
+Your personal OS, powered by Claude Code. Clone, run `/meos init`, and Claude becomes your active work partner — managing projects, tracking daily notes, and keeping you focused.
 
 **Built for Claude Code beginners** who want a structured workspace without configuring everything from scratch.
 
@@ -11,9 +11,8 @@ Your personal OS, powered by Claude Code. Clone, run `/init-meos`, and Claude be
 - Project tracking with CLAUDE.md-driven status and tasks
 - Quick capture for ideas, links, and meeting notes
 
-**Claude Config** — pre-built skills and memory system:
-- `/meos` command — session start, daily notes, project status, standup, end-of-day reflection
-- `/meos-find-skill` — search and install skills from [skills.sh](https://skills.sh)
+**Claude Config** — one skill and a memory system:
+- `/meos` command — setup, session start, daily notes, project status, standup, end-of-day, skill discovery
 - 4-layer memory — CLAUDE.md instructions, MEMORY.md quick ref, lessons.md for mistakes, QMD for deep search
 
 ## Quickstart
@@ -23,15 +22,15 @@ Your personal OS, powered by Claude Code. Clone, run `/init-meos`, and Claude be
 git clone https://github.com/ssv445/claude-meos.git
 cd claude-meos
 
-# 2. Run setup — skills work instantly, no copying needed
+# 2. Run setup — the skill works instantly, no copying needed
 claude
-# Then type: /init-meos
+# Then type: /meos init
 ```
 
-The `/init-meos` wizard will:
+The `/meos init` wizard will:
 1. Ask your name and workspace path
 2. Create workspace folders and generate your CLAUDE.md files
-3. Install skills to `~/.claude/` (for global access)
+3. Install the `/meos` skill globally
 4. Optionally configure QMD semantic search
 5. Offer to create your first project
 
@@ -44,19 +43,20 @@ cd ~/workspace  # or wherever you set it up
 claude
 ```
 
-### Daily Workflow
+### All Commands
 
 | Command | What it does |
 |---------|-------------|
+| `/meos init` | First-time setup wizard |
 | `/meos start` | Morning kickoff — shows what's pending, asks what to focus on |
-| `/meos daily` | Creates today's daily note from template (carries forward incomplete tasks) |
-| `/meos status` | Quick table of all projects with health scores and top tasks |
+| `/meos daily` | Creates today's daily note (carries forward incomplete tasks) |
+| `/meos status` | Quick table of all projects with health scores |
 | `/meos standup` | Quick standup summary — yesterday/today/blockers |
 | `/meos eod` | Evening reflection — planned vs done, set tomorrow's priority |
 | `/meos new-project` | Create a new project with CLAUDE.md |
-| `/meos-find-skill` | Search and install skills from [skills.sh](https://skills.sh) |
-| `/meos-find-skill search <q>` | Search skills by keyword |
-| `/meos-find-skill install <repo>` | Install a skill from GitHub |
+| `/meos find-skill` | Browse popular skills from [skills.sh](https://skills.sh) |
+| `/meos find-skill search <q>` | Search skills by keyword |
+| `/meos find-skill install <repo>` | Install a skill from GitHub |
 
 ## Architecture
 
@@ -73,23 +73,20 @@ claude
 
 ```
 claude-meos/                         # Clone this repo
-  .claude/skills/                    # Skills work instantly — no copy needed
-    init-meos/SKILL.md               # /init-meos wizard
-    meos/SKILL.md                    # /meos daily workflow
-    meos-find-skill/SKILL.md         # /meos-find-skill from skills.sh
+  .claude/skills/meos/SKILL.md      # /meos — the only skill you need
   workspace/                         # Template for your workspace
   claude-config/                     # References, settings
   docs/                              # Documentation
 
-your-workspace/                      # Created by /init-meos
+your-workspace/                      # Created by /meos init
   CLAUDE.md                          # Workspace instructions
   projects/my-project/CLAUDE.md      # Per-project status & tasks
   notes/daily/                       # YYYY-MM-DD.md daily notes
   templates/                         # Note templates
 
-~/.claude/                           # Installed globally by /init-meos
+~/.claude/                           # Installed globally by /meos init
   CLAUDE.md                          # Global instructions
-  skills/                            # Skills (installed globally)
+  skills/meos/                       # The /meos skill
   tasks/lessons.md                   # Cross-project learning
 ```
 

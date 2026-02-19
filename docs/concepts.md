@@ -39,8 +39,7 @@ Skills are slash commands (like /init-meos and /meos) that provide structured wo
 
 ### Included Skills
 
-- `/init-meos` - One-time workspace configuration wizard
-- `/meos` - Daily workflow assistant (start, status, daily, eod, new-project)
+- `/meos` - Everything in one command: init, start, status, daily, standup, eod, new-project, find-skill
 
 ### How Skills Differ from Agents
 
