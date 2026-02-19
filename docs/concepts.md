@@ -25,34 +25,13 @@ Claude Code reads instruction files called CLAUDE.md at multiple levels. Each le
 
 ## Agents
 
-Agents are reusable AI personas defined in ~/.claude/agents/. Each agent has:
+Agents are reusable AI personas defined in `~/.claude/agents/`. Each agent has:
 - A **name** and **description** (shown in Claude's agent picker)
 - **Tools** it can use (Bash, Read, Write, etc.)
 - **Model** preference (sonnet for speed, opus for quality)
 - Detailed **instructions** for its role
 
-### Included Agents
-
-**Orchestrators** (coordinate teams of agents):
-- `team-research` - Spawns web + code researchers in parallel, synthesizes findings
-- `team-review` - Spawns code reviewers across multiple dimensions, deduplicates report
-- `team-debug` - Competing-hypothesis bug investigation with parallel investigators
-
-**Reviewers** (specialized code analysis):
-- `review/code-standards` - Naming, formatting, conventions
-- `review/architecture` - SOLID, modularity, design patterns
-- `review/error-handling` - Exceptions, edge cases, logging
-
-**Command Agents** (specialized executors):
-- `commands/execute` - Safe shell command execution with validation
-- `commands/build` - Production build runner with package manager detection
-- `commands/lint` - Linter runner
-
-### How to Use Agents
-
-Agents are triggered automatically by Claude when relevant, or you can reference them:
-- "Use team-research to investigate this"
-- "Run a code review with team-review"
+MEOS doesn't ship with pre-built agents — instead, use `/meos-find-skill` to discover and install agents from the community, or create your own in `~/.claude/agents/`. See [Customization](customization.md) for how to create agents.
 
 ## Skills
 

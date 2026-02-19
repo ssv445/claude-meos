@@ -33,10 +33,9 @@ The wizard will:
 1. Ask your name and preferred workspace location
 2. Create the workspace folder structure
 3. Generate personalized CLAUDE.md files
-4. Install AI agents to ~/.claude/agents/
-5. Install skills to ~/.claude/skills/
-6. Optionally set up QMD local knowledge base
-7. Optionally create your first project
+4. Install skills to ~/.claude/skills/
+5. Optionally set up QMD local knowledge base
+6. Optionally create your first project
 
 ## Step 3: Open Your Workspace
 
@@ -85,8 +84,8 @@ Reviews your task completion, guides you through reflection, and sets tomorrow's
 ### "Could not locate workspace"
 Make sure you're running Claude Code from within your workspace directory, or that ~/workspace exists.
 
-### Agents not available
-Verify agents were copied to ~/.claude/agents/. Re-run /init-meos if needed.
+### Want agents?
+Use `/meos-find-skill` to discover and install agents from the community, or create your own in `~/.claude/agents/`.
 
 ### QMD not working
 1. Check installation: `which qmd`

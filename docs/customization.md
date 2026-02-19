@@ -93,10 +93,13 @@ Key sections you might want to modify:
 - **Conventions** - Your naming and organization preferences
 - **Quick Commands** - If you add custom skills
 
-## Adding Review Dimensions
+## Finding Community Skills & Agents
 
-To add more code review dimensions to team-review:
+Use `/meos-find-skill` to discover skills and agents built by the community:
 
-1. Create a review agent in ~/.claude/agents/review/my-dimension.md
-2. Edit ~/.claude/agents/team-review.md to include the new dimension
-3. Add it to the review dimensions list and spawning logic
+```
+/meos-find-skill search "code review"
+/meos-find-skill install owner/repo
+```
+
+This uses [skills.sh](https://skills.sh) to browse, preview, and install with one command.

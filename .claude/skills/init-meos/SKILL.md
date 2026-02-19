@@ -32,7 +32,7 @@ Welcome to Claude MEOS!
 This setup will:
 1. Create your workspace folder structure
 2. Generate personalized CLAUDE.md configuration files
-3. Install AI agents and skills
+3. Install skills globally
 4. Optionally set up QMD local knowledge base
 
 Let's get started.
@@ -119,31 +119,7 @@ Use AskUserQuestion:
 
 ---
 
-## STEP 8: Install Agents
-
-Create agent directories and copy files:
-
-```bash
-mkdir -p ~/.claude/agents/commands
-mkdir -p ~/.claude/agents/review
-```
-
-Copy each agent:
-1. `[KIT_REPO]/claude-config/agents/team-research.md` → `~/.claude/agents/team-research.md`
-2. `[KIT_REPO]/claude-config/agents/team-review.md` → `~/.claude/agents/team-review.md`
-3. `[KIT_REPO]/claude-config/agents/team-debug.md` → `~/.claude/agents/team-debug.md`
-4. `[KIT_REPO]/claude-config/agents/review/code-standards.md` → `~/.claude/agents/review/code-standards.md`
-5. `[KIT_REPO]/claude-config/agents/review/architecture.md` → `~/.claude/agents/review/architecture.md`
-6. `[KIT_REPO]/claude-config/agents/review/error-handling.md` → `~/.claude/agents/review/error-handling.md`
-7. `[KIT_REPO]/claude-config/agents/commands/execute.md` → `~/.claude/agents/commands/execute.md`
-8. `[KIT_REPO]/claude-config/agents/commands/build.md` → `~/.claude/agents/commands/build.md`
-9. `[KIT_REPO]/claude-config/agents/commands/lint.md` → `~/.claude/agents/commands/lint.md`
-
-For each: Read source, Write to destination. Skip if destination already exists (report "already exists, skipping").
-
----
-
-## STEP 9: Install Skills Globally
+## STEP 8: Install Skills Globally
 
 Copy skills from the repo's `.claude/skills/` to `~/.claude/skills/` so they work in any project:
 
@@ -162,7 +138,7 @@ For each: Read source, Write to destination. Skip if destination already exists 
 
 ---
 
-## STEP 10: QMD Setup (Optional)
+## STEP 9: QMD Setup (Optional)
 
 Use AskUserQuestion:
 "Would you like to set up QMD (local knowledge base for searching your notes)?"
@@ -194,11 +170,11 @@ collections:
 
 ---
 
-## STEP 11: Update Settings (Optional)
+## STEP 10: Update Settings (Optional)
 
 Use AskUserQuestion:
 "Would you like to update ~/.claude/settings.json with recommended settings?"
-- Show what will be added: agent teams support, QMD MCP server (if configured)
+- Show what will be added: QMD MCP server (if configured)
 - Options:
   - "Yes, update settings"
   - "No, I'll configure manually"
@@ -206,14 +182,13 @@ Use AskUserQuestion:
 **If yes:**
 1. Read existing ~/.claude/settings.json (if exists)
 2. Merge in:
-   - `env.CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS`: "1"
    - `mcpServers.qmd` (only if QMD was set up): `{"command": "qmd", "args": ["mcp"]}`
 3. Write back (preserve existing settings)
 4. If file doesn't exist, create with just these settings
 
 ---
 
-## STEP 12: Create First Project (Optional)
+## STEP 11: Create First Project (Optional)
 
 Use AskUserQuestion:
 "Would you like to create your first project?"
@@ -232,7 +207,7 @@ Use AskUserQuestion:
 
 ---
 
-## STEP 13: Summary
+## STEP 12: Summary
 
 Display:
 ```
@@ -241,7 +216,6 @@ Setup complete!
 Created:
   Workspace:   [WORKSPACE_PATH]/
   Global config: ~/.claude/CLAUDE.md
-  Agents:      ~/.claude/agents/ (9 agents)
   Skills:      ~/.claude/skills/ (init-meos, meos, meos-find-skill)
   [QMD:        ~/.config/qmd/index.yml] (if configured)
   [Project:    [WORKSPACE_PATH]/projects/[name]/] (if created)

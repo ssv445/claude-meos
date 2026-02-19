@@ -11,10 +11,9 @@ Your personal OS, powered by Claude Code. Clone, run `/init-meos`, and Claude be
 - Project tracking with CLAUDE.md-driven status and tasks
 - Quick capture for ideas, links, and meeting notes
 
-**Claude Config** — pre-built agents and skills:
-- `/meos` command — session start, daily notes, project status, end-of-day reflection
+**Claude Config** — pre-built skills and memory system:
+- `/meos` command — session start, daily notes, project status, standup, end-of-day reflection
 - `/meos-find-skill` — search and install skills from [skills.sh](https://skills.sh)
-- 9 agents — research, debug, and review orchestrators, build/lint/execute runners
 - 4-layer memory — CLAUDE.md instructions, MEMORY.md quick ref, lessons.md for mistakes, QMD for deep search
 
 ## Quickstart
@@ -30,9 +29,9 @@ claude
 ```
 
 The `/init-meos` wizard will:
-1. Ask your name, workspace path, and code directory
+1. Ask your name and workspace path
 2. Create workspace folders and generate your CLAUDE.md files
-3. Install agents and skills to `~/.claude/` (for global access)
+3. Install skills to `~/.claude/` (for global access)
 4. Optionally configure QMD semantic search
 5. Offer to create your first project
 
@@ -59,24 +58,6 @@ claude
 | `/meos-find-skill search <q>` | Search skills by keyword |
 | `/meos-find-skill install <repo>` | Install a skill from GitHub |
 
-### Code Review
-
-When working in a code repo, Claude automatically uses the review agents:
-
-```
-"Do a full code review"
-→ Spawns code-standards + architecture + error-handling reviewers in parallel
-→ Deduplicates findings into a single prioritized report
-```
-
-### Research
-
-```
-"Research how to add OAuth to this app"
-→ Spawns web researcher + code researcher in parallel
-→ Synthesizes external docs with codebase patterns
-```
-
 ## Architecture
 
 ### 4-Layer Memory
@@ -88,20 +69,6 @@ When working in a code repo, Claude automatically uses the review agents:
 | lessons.md | Cross-project mistake prevention | `~/.claude/tasks/lessons.md` | Referenced on corrections |
 | QMD | Deep semantic search | `~/.config/qmd/` | Queried on demand |
 
-### Agents
-
-| Agent | Type | Model | Purpose |
-|-------|------|-------|---------|
-| team-research | Orchestrator | Sonnet | Parallel web + code research |
-| team-review | Orchestrator | Sonnet | Multi-dimension code review |
-| team-debug | Orchestrator | Sonnet | Competing-hypothesis bug investigation |
-| code-standards | Reviewer | Sonnet | Naming, formatting, conventions |
-| architecture | Reviewer | Sonnet | SOLID, modularity, design patterns |
-| error-handling | Reviewer | Sonnet | Exceptions, edge cases, logging |
-| execute | Command | Haiku | Shell command execution |
-| build | Command | Haiku | Production builds |
-| lint | Command | Haiku | Linter execution |
-
 ### Folder Structure
 
 ```
@@ -111,7 +78,7 @@ claude-meos/                         # Clone this repo
     meos/SKILL.md                    # /meos daily workflow
     meos-find-skill/SKILL.md         # /meos-find-skill from skills.sh
   workspace/                         # Template for your workspace
-  claude-config/                     # Agents, references, settings
+  claude-config/                     # References, settings
   docs/                              # Documentation
 
 your-workspace/                      # Created by /init-meos
@@ -122,8 +89,7 @@ your-workspace/                      # Created by /init-meos
 
 ~/.claude/                           # Installed globally by /init-meos
   CLAUDE.md                          # Global instructions
-  agents/                            # Research, review, command agents
-  skills/                            # Skills (also available globally)
+  skills/                            # Skills (installed globally)
   tasks/lessons.md                   # Cross-project learning
 ```
 
