@@ -2,7 +2,7 @@
 
 ## Adding a New Agent
 
-Create a markdown file in ~/.claude/agents/:
+Create a markdown file in `.claude/agents/` (repo-local) or `~/.claude/agents/` (global):
 
 ```markdown
 ---
@@ -30,7 +30,7 @@ Instructions for the agent...
 
 ## Adding a New Skill
 
-Create a folder in ~/.claude/skills/my-skill/ with a SKILL.md:
+Create a folder in `.claude/skills/my-skill/` (repo-local) or `~/.claude/skills/my-skill/` (global) with a SKILL.md:
 
 ```markdown
 ---
@@ -58,7 +58,7 @@ Users invoke it with `/my-skill`.
 
 ## Adding MCP Servers
 
-Edit ~/.claude/settings.json:
+Add to `.mcp.json` in your workspace root (or `~/.claude/settings.json` for global):
 
 ```json
 {
@@ -71,7 +71,7 @@ Edit ~/.claude/settings.json:
 }
 ```
 
-See docs/mcp-servers.md for specific server setup guides.
+See [mcp-servers.md](mcp-servers.md) for specific server setup guides.
 
 ## Modifying Templates
 
@@ -79,6 +79,7 @@ Templates live in your workspace's templates/ folder:
 - `daily-note.md` - Daily note structure
 - `morning-start.md` - Morning planning template
 - `project-claude-md.md` - New project CLAUDE.md template
+- `weekly-review.md` - Weekly review template
 
 Edit these to match your workflow. Supported placeholders:
 - `{{DATE}}` - Replaced with YYYY-MM-DD

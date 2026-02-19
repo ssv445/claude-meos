@@ -54,7 +54,8 @@ claude
 | `/meos standup` | Quick standup summary — yesterday/today/blockers |
 | `/meos eod` | Evening reflection — planned vs done, set tomorrow's priority |
 | `/meos new-project` | Create a new project with CLAUDE.md |
-| `/find-skills` | Discover and install skills from [skills.sh](https://skills.sh) |
+
+Also bundled: `/find-skills` — discover and install skills from [skills.sh](https://skills.sh)
 
 ## Architecture
 
@@ -62,7 +63,7 @@ claude
 
 | Layer | What | Where | When |
 |-------|------|-------|------|
-| CLAUDE.md | Instructions for Claude's behavior | Repo root / `~/.claude/` | Always loaded |
+| CLAUDE.md | Instructions for Claude's behavior | Workspace root, project dirs | Always loaded |
 | MEMORY.md | Per-project quick reference | `~/.claude/projects/*/memory/` | Auto-loaded, 200 line limit |
 | lessons.md | Cross-project mistake prevention | `~/.claude/tasks/lessons.md` | Referenced on corrections |
 | QMD | Deep semantic search | Local index via [tobi/qmd](https://github.com/tobi/qmd) | Queried on demand |
@@ -82,6 +83,7 @@ your-workspace/                      # Created by /meos init
   .mcp.json                          # MCP servers (QMD, if configured)
   projects/my-project/CLAUDE.md      # Per-project status & tasks
   notes/daily/                       # YYYY-MM-DD.md daily notes
+  notes/captures/                    # Quick thoughts and ideas
   templates/                         # Note templates
 ```
 

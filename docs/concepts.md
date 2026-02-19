@@ -8,7 +8,7 @@ Claude Code reads instruction files called CLAUDE.md at multiple levels. Each le
 - Your personal preferences and principles
 - Applies to ALL projects and workspaces
 - Contains: coding style, investigation protocol, workflow preferences
-- Created by `/meos init` from the template
+- Claude Code creates this automatically; you can customize it manually
 
 ### Workspace (your-workspace/CLAUDE.md)
 - Instructions specific to this workspace
@@ -25,17 +25,17 @@ Claude Code reads instruction files called CLAUDE.md at multiple levels. Each le
 
 ## Agents
 
-Agents are reusable AI personas defined in `~/.claude/agents/`. Each agent has:
+Agents are reusable AI personas defined in `.claude/agents/` (repo-local or `~/.claude/agents/` for global). Each agent has:
 - A **name** and **description** (shown in Claude's agent picker)
 - **Tools** it can use (Bash, Read, Write, etc.)
 - **Model** preference (sonnet for speed, opus for quality)
 - Detailed **instructions** for its role
 
-MEOS doesn't ship with pre-built agents — instead, use `/find-skills` to discover and install agents from the community, or create your own in `~/.claude/agents/`. See [Customization](customization.md) for how to create agents.
+MEOS doesn't ship with pre-built agents — instead, use `/find-skills` to discover and install agents from the community, or create your own. See [Customization](customization.md) for how to create agents.
 
 ## Skills
 
-Skills are slash commands (like `/meos`) that provide structured workflows. Each skill lives in `~/.claude/skills/name/SKILL.md`.
+Skills are slash commands (like `/meos`) that provide structured workflows. Each skill lives in `.claude/skills/name/SKILL.md` (repo-local or `~/.claude/skills/` for global).
 
 ### Included Skills
 
@@ -99,7 +99,7 @@ Claude MEOS uses four layers of memory, each serving a different purpose:
 
 ## MCP Servers
 
-Model Context Protocol (MCP) servers extend Claude's capabilities by providing additional tools. Configured in ~/.claude/settings.json under `mcpServers`.
+Model Context Protocol (MCP) servers extend Claude's capabilities by providing additional tools. Configured in `.mcp.json` (workspace-local) or `~/.claude/settings.json` (global) under `mcpServers`.
 
 **Example: QMD** provides semantic search over your local files, giving Claude the ability to search your notes and projects.
 

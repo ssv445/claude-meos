@@ -1,6 +1,6 @@
 # MCP Server Setup
 
-MCP (Model Context Protocol) servers extend Claude Code with additional tools. Configure in `~/.claude/settings.json`.
+MCP (Model Context Protocol) servers extend Claude Code with additional tools. Configure in `.mcp.json` (workspace-local) or `~/.claude/settings.json` (global).
 
 ## QMD - Local Knowledge Base
 
@@ -31,7 +31,9 @@ qmd context add qmd://projects "Project planning, research, meeting notes, decis
 qmd embed
 ```
 
-### Add to Claude Settings
+### Add to Workspace Config
+
+Add to `.mcp.json` in your workspace root (`/meos init` does this automatically):
 
 ```json
 {
@@ -61,7 +63,7 @@ qmd embed        # Re-index and rebuild embeddings
 qmd embed -f     # Force full re-embed
 ```
 
-Add a QMD section to `~/.claude/CLAUDE.md` so Claude knows to use it.
+Once configured in `.mcp.json`, Claude will automatically have access to QMD tools in your workspace.
 
 ## Filesystem MCP
 
@@ -98,4 +100,4 @@ Lets Claude control a web browser for testing and automation.
 - [modelcontextprotocol.io](https://modelcontextprotocol.io) - Official directory
 - [github.com/modelcontextprotocol](https://github.com/modelcontextprotocol) - Source repos
 
-All servers follow the same `settings.json` configuration pattern.
+All servers follow the same configuration pattern — add to `.mcp.json` (workspace) or `~/.claude/settings.json` (global).
