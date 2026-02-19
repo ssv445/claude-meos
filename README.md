@@ -12,7 +12,8 @@ Your personal OS, powered by Claude Code. Clone, run `/meos init`, and Claude be
 - Quick capture for ideas, links, and meeting notes
 
 **Claude Config** — one skill and a memory system:
-- `/meos` command — setup, session start, daily notes, project status, standup, end-of-day, skill discovery
+- `/meos` command — setup, session start, daily notes, project status, standup, end-of-day
+- `/find-skills` — discover and install skills from [skills.sh](https://skills.sh)
 - 4-layer memory — CLAUDE.md instructions, MEMORY.md quick ref, lessons.md for mistakes, QMD for deep search
 
 ## Quickstart
@@ -54,9 +55,7 @@ claude
 | `/meos standup` | Quick standup summary — yesterday/today/blockers |
 | `/meos eod` | Evening reflection — planned vs done, set tomorrow's priority |
 | `/meos new-project` | Create a new project with CLAUDE.md |
-| `/meos find-skill` | Browse popular skills from [skills.sh](https://skills.sh) |
-| `/meos find-skill search <q>` | Search skills by keyword |
-| `/meos find-skill install <repo>` | Install a skill from GitHub |
+| `/find-skills` | Discover and install skills from [skills.sh](https://skills.sh) |
 
 ## Architecture
 
@@ -73,7 +72,8 @@ claude
 
 ```
 claude-meos/                         # Clone this repo
-  .claude/skills/meos/SKILL.md      # /meos — the only skill you need
+  .claude/skills/meos/SKILL.md      # /meos — workspace management
+  .claude/skills/find-skills/SKILL.md # /find-skills — skill discovery (3rd party)
   workspace/                         # Template for your workspace
   claude-config/                     # References, settings
   docs/                              # Documentation

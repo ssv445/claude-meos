@@ -31,7 +31,7 @@ Agents are reusable AI personas defined in `~/.claude/agents/`. Each agent has:
 - **Model** preference (sonnet for speed, opus for quality)
 - Detailed **instructions** for its role
 
-MEOS doesn't ship with pre-built agents — instead, use `/meos find-skill` to discover and install agents from the community, or create your own in `~/.claude/agents/`. See [Customization](customization.md) for how to create agents.
+MEOS doesn't ship with pre-built agents — instead, use `/find-skills` to discover and install agents from the community, or create your own in `~/.claude/agents/`. See [Customization](customization.md) for how to create agents.
 
 ## Skills
 
@@ -39,7 +39,8 @@ Skills are slash commands (like `/meos`) that provide structured workflows. Each
 
 ### Included Skills
 
-- `/meos` - Everything in one command: init, start, status, daily, standup, eod, new-project, find-skill
+- `/meos` - Workspace management: init, start, status, daily, standup, eod, new-project
+- `/find-skills` - Discover and install skills from skills.sh (bundled 3rd-party skill)
 
 ### How Skills Differ from Agents
 

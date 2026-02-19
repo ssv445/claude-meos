@@ -85,7 +85,7 @@ Reviews your task completion, guides you through reflection, and sets tomorrow's
 Make sure you're running Claude Code from within your workspace directory, or that ~/workspace exists.
 
 ### Want agents?
-Use `/meos find-skill` to discover and install agents from the community, or create your own in `~/.claude/agents/`.
+Use `/find-skills` to discover and install agents from the community, or create your own in `~/.claude/agents/`.
 
 ### QMD not working
 1. Check installation: `which qmd`

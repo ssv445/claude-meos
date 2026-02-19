@@ -13,8 +13,6 @@ description: |
     /meos standup          - Quick standup summary
     /meos eod              - End of day reflection
     /meos new-project      - Create new project structure
-    /meos find-skill       - Browse/search/install skills from skills.sh
-
 allowed-tools:
   - Read
   - Write
@@ -23,7 +21,6 @@ allowed-tools:
   - Bash
   - Task
   - AskUserQuestion
-  - WebFetch
 ---
 
 # MEOS — My Extensible Operating System
@@ -42,8 +39,6 @@ Parse the first argument:
 - `standup` - Quick standup summary
 - `eod` - End of day reflection
 - `new-project <name>` - Create new project
-- `find-skill [subcommand]` - Browse/search/install skills
-
 **No command:** Show help text.
 
 ---
@@ -448,122 +443,6 @@ If today's daily note doesn't exist: "I notice today's daily note doesn't exist 
 
 ---
 
-## COMMAND: find-skill
-
-**Browse, search, and install skills from [skills.sh](https://skills.sh)**
-
-### Prerequisite Check
-
-Verify `skills` CLI is available:
-```bash
-npx skills --version 2>/dev/null
-```
-If it fails: "The skills CLI is needed. It runs via npx so no install is required — just ensure you have Node.js/npm installed."
-
-### Subcommand Router
-
-Parse the argument after `find-skill`:
-
-| Subcommand | Action |
-|------------|--------|
-| (none) | Browse popular skills |
-| `search <query>` | Search skills.sh |
-| `install <owner/repo>` | Install a skill |
-| `list` | Show installed skills |
-| `update` | Update all skills |
-
-### find-skill (no args) — Browse Popular
-
-1. Fetch the skills.sh homepage:
-   - Use WebFetch on `https://skills.sh` to get the leaderboard
-   - Extract top 10-15 skills with: name, description, install count, source repo
-
-2. Present as a numbered list:
-   ```
-   Popular skills on skills.sh:
-
-   1. find-skills (vercel-labs/skills) — 257K installs
-      Search and discover agent skills
-   2. best-practices (vercel-labs/skills) — 26K installs
-      Coding best practices for AI agents
-   ...
-   ```
-
-3. Ask user (AskUserQuestion):
-   "Would you like to install any of these?"
-   - Options: "Yes, pick one", "Search for something specific", "No thanks"
-
-4. If "Yes": Ask which number, then run the install flow
-5. If "Search": Ask for search query, then run the search flow
-
-### find-skill search <query>
-
-1. Run the skills CLI search:
-   ```bash
-   npx skills find "<query>" 2>&1 | head -50
-   ```
-
-2. Present results to user with: name, source repo, description
-
-3. Ask user (AskUserQuestion):
-   "Would you like to install any of these?"
-   - Options: list top 3-4 results by name
-
-4. If selected, run the install flow for that skill
-
-### find-skill install <owner/repo>
-
-**Arguments:** GitHub shorthand (e.g., `vercel-labs/skills`) or full URL
-
-**Step 1: Preview the skill**
-1. Fetch the repo to find SKILL.md files:
-   ```bash
-   npx skills add <owner/repo> -a claude-code --list 2>&1
-   ```
-2. Show the user: skill name(s), description, tools used
-
-**Step 2: Choose scope**
-Ask user (AskUserQuestion):
-"Where should this skill be installed?"
-- Options:
-  - "Global (~/.claude/skills/) — available everywhere" (Recommended)
-  - "Project (.claude/skills/) — this project only"
-
-**Step 3: Install**
-```bash
-# Global:
-npx skills add <owner/repo> -a claude-code -g -y
-# Project:
-npx skills add <owner/repo> -a claude-code -y
-```
-
-**Step 4: Verify**
-```bash
-npx skills list -a claude-code 2>&1
-```
-Show what was installed and how to use it.
-
-### find-skill list
-
-```bash
-npx skills list -a claude-code 2>&1
-```
-
-If empty or fails, also check directly:
-```bash
-echo "=== Global skills ===" && ls ~/.claude/skills/ 2>/dev/null
-echo "=== Project skills ===" && ls .claude/skills/ 2>/dev/null
-```
-
-### find-skill update
-
-```bash
-npx skills update -a claude-code -y 2>&1
-```
-Report what was updated.
-
----
-
 ## HELP TEXT
 
 If no command provided:
@@ -579,14 +458,11 @@ Commands:
   /meos standup          - Quick standup summary
   /meos eod              - End of day reflection
   /meos new-project      - Create new project (requires name)
-  /meos find-skill       - Browse popular skills from skills.sh
-  /meos find-skill search <q>    - Search for skills
-  /meos find-skill install <r>   - Install from GitHub
+
+  Tip: Use /find-skills to discover and install more skills
 
 Examples:
   /meos start
   /meos daily
   /meos new-project my-awesome-project
-  /meos find-skill search "code review"
-  /meos find-skill install vercel-labs/skills
 ```

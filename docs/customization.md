@@ -95,11 +95,10 @@ Key sections you might want to modify:
 
 ## Finding Community Skills & Agents
 
-Use `/meos find-skill` to discover skills and agents built by the community:
+Use `/find-skills` to discover skills and agents built by the community:
 
 ```
-/meos find-skill search "code review"
-/meos find-skill install owner/repo
+/find-skills
 ```
 
-This uses [skills.sh](https://skills.sh) to browse, preview, and install with one command.
+This uses [skills.sh](https://skills.sh) to browse, preview, and install skills with one command.

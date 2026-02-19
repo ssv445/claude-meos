@@ -127,7 +127,7 @@ For projects with code:
 | `/meos standup` | Quick standup summary — yesterday/today/blockers |
 | `/meos eod` | End of day reflection |
 | `/meos new-project` | Create new project structure |
-| `/meos find-skill` | Browse and install skills from skills.sh |
+| `/find-skills` | Discover and install skills from skills.sh |
 
 ---
 
