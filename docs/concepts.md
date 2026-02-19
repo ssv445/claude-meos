@@ -8,7 +8,7 @@ Claude Code reads instruction files called CLAUDE.md at multiple levels. Each le
 - Your personal preferences and principles
 - Applies to ALL projects and workspaces
 - Contains: coding style, investigation protocol, workflow preferences
-- Created by /init-meos from the template
+- Created by `/meos init` from the template
 
 ### Workspace (your-workspace/CLAUDE.md)
 - Instructions specific to this workspace
@@ -31,11 +31,11 @@ Agents are reusable AI personas defined in `~/.claude/agents/`. Each agent has:
 - **Model** preference (sonnet for speed, opus for quality)
 - Detailed **instructions** for its role
 
-MEOS doesn't ship with pre-built agents — instead, use `/meos-find-skill` to discover and install agents from the community, or create your own in `~/.claude/agents/`. See [Customization](customization.md) for how to create agents.
+MEOS doesn't ship with pre-built agents — instead, use `/meos find-skill` to discover and install agents from the community, or create your own in `~/.claude/agents/`. See [Customization](customization.md) for how to create agents.
 
 ## Skills
 
-Skills are slash commands (like /init-meos and /meos) that provide structured workflows. Each skill lives in ~/.claude/skills/name/SKILL.md.
+Skills are slash commands (like `/meos`) that provide structured workflows. Each skill lives in `~/.claude/skills/name/SKILL.md`.
 
 ### Included Skills
 
