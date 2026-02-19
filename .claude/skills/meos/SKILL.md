@@ -179,7 +179,7 @@ Use AskUserQuestion:
   - "No, skip for now"
   - "What is QMD?"
 
-**If "What is QMD?":** Explain: "QMD is a local semantic search engine that indexes your notes and projects. It lets Claude search your workspace content using `qmd query 'topic'`. It runs entirely local — no cloud, no API keys. Requires Node.js or Bun." Then re-ask.
+**If "What is QMD?":** Explain: "QMD is a local semantic search engine that indexes your notes and projects. It runs entirely local — no cloud, no API keys. The `/qmd` skill is already bundled in this repo." Then re-ask.
 
 **If yes:**
 1. Check if qmd is installed: `which qmd`
@@ -199,25 +199,13 @@ qmd context add qmd://projects "Project planning, research, meeting notes, decis
 ```bash
 qmd embed
 ```
-6. Copy QMD reference: `[KIT_REPO]/claude-config/references/qmd.md` → `~/.claude/references/qmd.md`
+6. Add QMD MCP server to Claude settings:
+   - Read existing `~/.claude/settings.json` (if exists)
+   - Merge in: `"mcpServers": { "qmd": { "command": "qmd", "args": ["mcp"] } }`
+   - Write back (preserve existing settings)
+   - If file doesn't exist, create with just this setting
 
-### Step 10: Update Settings (Optional)
-
-Use AskUserQuestion:
-"Would you like to update ~/.claude/settings.json with recommended settings?"
-- Show what will be added: QMD MCP server (if configured)
-- Options:
-  - "Yes, update settings"
-  - "No, I'll configure manually"
-
-**If yes:**
-1. Read existing ~/.claude/settings.json (if exists)
-2. Merge in:
-   - `mcpServers.qmd` (only if QMD was set up): `{"command": "qmd", "args": ["mcp"]}`
-3. Write back (preserve existing settings)
-4. If file doesn't exist, create with just these settings
-
-### Step 11: Create First Project (Optional)
+### Step 10: Create First Project (Optional)
 
 Use AskUserQuestion:
 "Would you like to create your first project?"
@@ -234,7 +222,7 @@ Use AskUserQuestion:
 6. Read project template, replace placeholders, write CLAUDE.md
 7. Update workspace CLAUDE.md projects table
 
-### Step 12: Summary
+### Step 11: Summary
 
 Display:
 ```
