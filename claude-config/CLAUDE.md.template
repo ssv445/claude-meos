@@ -70,7 +70,7 @@
 
 ### File Locations
 - Project tasks: `./tasks/todo.md` (per-project)
-- Global lessons: `~/.claude/tasks/lessons.md`
+- Global lessons: `./lessons.md` (workspace root)
 
 ### Workflow
 1. Write plan to `tasks/todo.md` with checkable items

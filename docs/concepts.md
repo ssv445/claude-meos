@@ -70,8 +70,9 @@ Claude MEOS uses four layers of memory, each serving a different purpose:
 
 ### Layer 3: lessons.md (Mistake Prevention)
 - **What:** Cross-project learning log in Context/Mistake/Rule format
-- **Where:** `~/.claude/tasks/lessons.md`
+- **Where:** `./lessons.md` (workspace root — committable, visible)
 - **When loaded:** Referenced when Claude makes corrections or encounters similar patterns
+- **Auto-recording:** A Stop hook in `.claude/settings.json` detects user corrections and prompts Claude to update lessons.md before stopping
 - **Use for:** Preventing repeated mistakes, capturing debugging insights
 - **Format:**
   ```

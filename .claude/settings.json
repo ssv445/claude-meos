@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "Review this conversation. Were there explicit user corrections where the user told Claude it made a mistake, corrected Claude's approach, or where debugging revealed a wrong assumption by Claude?\n\nDo NOT count normal clarifications, preference statements, or back-and-forth discussion as corrections.\n\nIf genuine corrections/mistakes were found, respond:\n{\"decision\": \"block\", \"reason\": \"User corrections detected. Update ./lessons.md with new lessons using the Context/Mistake/Rule format before stopping.\"}\n\nIf no corrections, respond:\n{\"decision\": \"approve\"}",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

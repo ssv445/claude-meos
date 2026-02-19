@@ -65,7 +65,7 @@ Also bundled: `/find-skills` — discover and install skills from [skills.sh](ht
 |-------|------|-------|------|
 | CLAUDE.md | Instructions for Claude's behavior | Workspace root, project dirs | Always loaded |
 | MEMORY.md | Per-project quick reference | `~/.claude/projects/*/memory/` | Auto-loaded, 200 line limit |
-| lessons.md | Cross-project mistake prevention | `~/.claude/tasks/lessons.md` | Referenced on corrections |
+| lessons.md | Cross-project mistake prevention | `./lessons.md` (workspace root) | Referenced on corrections |
 | QMD | Deep semantic search | Local index via [tobi/qmd](https://github.com/tobi/qmd) | Queried on demand |
 
 ### Folder Structure

@@ -84,7 +84,8 @@ Welcome to Claude MEOS!
 This setup will:
 1. Create your workspace folder structure
 2. Generate personalized CLAUDE.md configuration
-3. Optionally set up QMD local knowledge base
+3. Set up lessons.md and auto-record hook
+4. Optionally set up QMD local knowledge base
 
 Let's get started.
 ```
@@ -126,14 +127,40 @@ mkdir -p [WORKSPACE_PATH]/notes/captures
 mkdir -p [WORKSPACE_PATH]/templates
 ```
 
-### Step 5: Generate Workspace CLAUDE.md
+### Step 5: Copy lessons.md and Create Hook Config
+
+1. Read `[KIT_REPO]/lessons.md` → Write to `[WORKSPACE_PATH]/lessons.md` (skip if exists)
+2. Create `[WORKSPACE_PATH]/.claude/settings.json` with the Stop hook for auto-recording lessons:
+   ```bash
+   mkdir -p [WORKSPACE_PATH]/.claude
+   ```
+   Write this JSON to `[WORKSPACE_PATH]/.claude/settings.json` (skip if exists):
+   ```json
+   {
+     "hooks": {
+       "Stop": [
+         {
+           "hooks": [
+             {
+               "type": "prompt",
+               "prompt": "Review this conversation. Were there explicit user corrections where the user told Claude it made a mistake, corrected Claude's approach, or where debugging revealed a wrong assumption by Claude?\n\nDo NOT count normal clarifications, preference statements, or back-and-forth discussion as corrections.\n\nIf genuine corrections/mistakes were found, respond:\n{\"decision\": \"block\", \"reason\": \"User corrections detected. Update ./lessons.md with new lessons using the Context/Mistake/Rule format before stopping.\"}\n\nIf no corrections, respond:\n{\"decision\": \"approve\"}",
+               "timeout": 30
+             }
+           ]
+         }
+       ]
+     }
+   }
+   ```
+
+### Step 6: Generate Workspace CLAUDE.md
 
 1. Read `[KIT_REPO]/workspace/CLAUDE.md.template`
 2. Replace all `{{USER_NAME}}` with [USER_NAME]
 3. Replace all `{{WORKSPACE_PATH}}` with [WORKSPACE_PATH]
 4. Write to `[WORKSPACE_PATH]/CLAUDE.md`
 
-### Step 6: Copy Workspace Templates
+### Step 7: Copy Workspace Templates
 
 Copy template files:
 1. Read `[KIT_REPO]/workspace/templates/daily-note.md` → Write to `[WORKSPACE_PATH]/templates/daily-note.md`
@@ -143,7 +170,7 @@ Copy template files:
 
 Skip any file that already exists at the destination.
 
-### Step 7: QMD Setup (Optional)
+### Step 8: QMD Setup (Optional)
 
 Use AskUserQuestion:
 "Would you like to set up QMD (local knowledge base for searching your notes)?"
@@ -183,7 +210,7 @@ qmd embed
      ```
    - If `.mcp.json` already exists, read it, merge in the qmd server, and write back
 
-### Step 8: Create First Project (Optional)
+### Step 9: Create First Project (Optional)
 
 Use AskUserQuestion:
 "Would you like to create your first project?"
@@ -200,7 +227,7 @@ Use AskUserQuestion:
 6. Read project template, replace placeholders, write CLAUDE.md
 7. Update workspace CLAUDE.md projects table
 
-### Step 9: Summary
+### Step 10: Summary
 
 Display:
 ```
@@ -210,6 +237,8 @@ Created:
   Workspace:   [WORKSPACE_PATH]/
   CLAUDE.md:   [WORKSPACE_PATH]/CLAUDE.md
   Templates:   [WORKSPACE_PATH]/templates/
+  Lessons:     [WORKSPACE_PATH]/lessons.md (auto-recorded via Stop hook)
+  Hook:        [WORKSPACE_PATH]/.claude/settings.json
   [QMD:        collections configured, .mcp.json created] (if set up)
   [Project:    [WORKSPACE_PATH]/projects/[name]/] (if created)
 
