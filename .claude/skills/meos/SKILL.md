@@ -83,9 +83,8 @@ Welcome to Claude MEOS!
 
 This setup will:
 1. Create your workspace folder structure
-2. Generate personalized CLAUDE.md configuration files
-3. Install the /meos skill globally
-4. Optionally set up QMD local knowledge base
+2. Generate personalized CLAUDE.md configuration
+3. Optionally set up QMD local knowledge base
 
 Let's get started.
 ```
@@ -140,37 +139,11 @@ Copy template files:
 1. Read `[KIT_REPO]/workspace/templates/daily-note.md` → Write to `[WORKSPACE_PATH]/templates/daily-note.md`
 2. Read `[KIT_REPO]/workspace/templates/morning-start.md` → Write to `[WORKSPACE_PATH]/templates/morning-start.md`
 3. Read `[KIT_REPO]/workspace/templates/project-claude-md.md` → Write to `[WORKSPACE_PATH]/templates/project-claude-md.md`
+4. Read `[KIT_REPO]/workspace/templates/weekly-review.md` → Write to `[WORKSPACE_PATH]/templates/weekly-review.md`
 
-### Step 7: Set Up Global Claude Config
+Skip any file that already exists at the destination.
 
-Use AskUserQuestion:
-"Would you like to set up a global Claude configuration at ~/.claude/CLAUDE.md?"
-- Options:
-  - "Yes, create it" (Recommended)
-  - "No, skip this"
-
-**If yes:**
-1. Check if ~/.claude/CLAUDE.md already exists
-2. If exists: Ask "~/.claude/CLAUDE.md already exists. Overwrite or skip?"
-   - Options: "Overwrite", "Skip"
-3. Read `[KIT_REPO]/claude-config/CLAUDE.md.template`
-4. Replace `{{USER_NAME}}` with [USER_NAME]
-5. Write to `~/.claude/CLAUDE.md`
-
-### Step 8: Install Skill Globally
-
-Copy the meos skill so it works in any project:
-
-```bash
-mkdir -p ~/.claude/skills/meos
-```
-
-Copy:
-- `[KIT_REPO]/.claude/skills/meos/SKILL.md` → `~/.claude/skills/meos/SKILL.md`
-
-Read source, Write to destination. Skip if destination already exists (report "already exists, skipping").
-
-### Step 9: QMD Setup (Optional)
+### Step 7: QMD Setup (Optional)
 
 Use AskUserQuestion:
 "Would you like to set up QMD (local knowledge base for searching your notes)?"
@@ -199,13 +172,18 @@ qmd context add qmd://projects "Project planning, research, meeting notes, decis
 ```bash
 qmd embed
 ```
-6. Add QMD MCP server to Claude settings:
-   - Read existing `~/.claude/settings.json` (if exists)
-   - Merge in: `"mcpServers": { "qmd": { "command": "qmd", "args": ["mcp"] } }`
-   - Write back (preserve existing settings)
-   - If file doesn't exist, create with just this setting
+6. Add QMD MCP server to workspace:
+   - Write `[WORKSPACE_PATH]/.mcp.json`:
+     ```json
+     {
+       "mcpServers": {
+         "qmd": { "command": "qmd", "args": ["mcp"] }
+       }
+     }
+     ```
+   - If `.mcp.json` already exists, read it, merge in the qmd server, and write back
 
-### Step 10: Create First Project (Optional)
+### Step 8: Create First Project (Optional)
 
 Use AskUserQuestion:
 "Would you like to create your first project?"
@@ -222,7 +200,7 @@ Use AskUserQuestion:
 6. Read project template, replace placeholders, write CLAUDE.md
 7. Update workspace CLAUDE.md projects table
 
-### Step 11: Summary
+### Step 9: Summary
 
 Display:
 ```
@@ -230,9 +208,9 @@ Setup complete!
 
 Created:
   Workspace:   [WORKSPACE_PATH]/
-  Global config: ~/.claude/CLAUDE.md
-  Skill:       ~/.claude/skills/meos/
-  [QMD:        collections configured] (if set up)
+  CLAUDE.md:   [WORKSPACE_PATH]/CLAUDE.md
+  Templates:   [WORKSPACE_PATH]/templates/
+  [QMD:        collections configured, .mcp.json created] (if set up)
   [Project:    [WORKSPACE_PATH]/projects/[name]/] (if created)
 
 Next steps:
@@ -240,6 +218,9 @@ Next steps:
   2. Try: /meos start
   3. Create a project: /meos new-project my-project
   4. Start your day: /meos daily
+
+Tip: The /meos skill works from the cloned repo. To use it globally,
+     copy .claude/skills/meos/ to ~/.claude/skills/meos/
 
 Happy building!
 ```

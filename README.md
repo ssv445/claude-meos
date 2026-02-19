@@ -30,10 +30,9 @@ claude
 
 The `/meos init` wizard will:
 1. Ask your name and workspace path
-2. Create workspace folders and generate your CLAUDE.md files
-3. Install the `/meos` skill globally
-4. Optionally configure QMD semantic search
-5. Offer to create your first project
+2. Create workspace folders and generate your CLAUDE.md
+3. Optionally configure QMD semantic search
+4. Offer to create your first project
 
 ## Usage
 
@@ -80,14 +79,10 @@ claude-meos/                         # Clone this repo
 
 your-workspace/                      # Created by /meos init
   CLAUDE.md                          # Workspace instructions
+  .mcp.json                          # MCP servers (QMD, if configured)
   projects/my-project/CLAUDE.md      # Per-project status & tasks
   notes/daily/                       # YYYY-MM-DD.md daily notes
   templates/                         # Note templates
-
-~/.claude/                           # Installed globally by /meos init
-  CLAUDE.md                          # Global instructions
-  skills/meos/                       # The /meos skill
-  tasks/lessons.md                   # Cross-project learning
 ```
 
 ## Customization

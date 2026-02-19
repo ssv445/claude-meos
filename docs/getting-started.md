@@ -32,10 +32,9 @@ Then run the setup wizard:
 The wizard will:
 1. Ask your name and preferred workspace location
 2. Create the workspace folder structure
-3. Generate personalized CLAUDE.md files
-4. Install the `/meos` skill globally
-5. Optionally set up QMD local knowledge base
-6. Optionally create your first project
+3. Generate personalized CLAUDE.md configuration
+4. Optionally set up QMD local knowledge base
+5. Optionally create your first project
 
 ## Step 3: Open Your Workspace
 
