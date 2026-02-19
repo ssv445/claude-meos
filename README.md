@@ -31,8 +31,9 @@ claude
 The `/meos init` wizard will:
 1. Ask your name and workspace path
 2. Create workspace folders and generate your CLAUDE.md
-3. Optionally configure QMD semantic search
-4. Offer to create your first project
+3. Set up lessons.md with auto-recording hook
+4. Optionally configure QMD semantic search
+5. Offer to create your first project
 
 ## Usage
 
@@ -80,6 +81,8 @@ claude-meos/                         # Clone this repo
 
 your-workspace/                      # Created by /meos init
   CLAUDE.md                          # Workspace instructions
+  lessons.md                         # Mistake prevention log (auto-recorded)
+  .claude/settings.json              # Stop hook for lesson recording
   .mcp.json                          # MCP servers (QMD, if configured)
   projects/my-project/CLAUDE.md      # Per-project status & tasks
   notes/daily/                       # YYYY-MM-DD.md daily notes
