@@ -66,7 +66,7 @@ claude
 | CLAUDE.md | Instructions for Claude's behavior | Repo root / `~/.claude/` | Always loaded |
 | MEMORY.md | Per-project quick reference | `~/.claude/projects/*/memory/` | Auto-loaded, 200 line limit |
 | lessons.md | Cross-project mistake prevention | `~/.claude/tasks/lessons.md` | Referenced on corrections |
-| QMD | Deep semantic search | `~/.config/qmd/` | Queried on demand |
+| QMD | Deep semantic search | Local index via [tobi/qmd](https://github.com/tobi/qmd) | Queried on demand |
 
 ### Folder Structure
 

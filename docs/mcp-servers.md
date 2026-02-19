@@ -4,35 +4,32 @@ MCP (Model Context Protocol) servers extend Claude Code with additional tools. C
 
 ## QMD - Local Knowledge Base
 
-Indexes your files for semantic search. Claude can search your notes and projects.
+Indexes your files for semantic search. Claude can search your notes and projects entirely locally — no cloud, no API keys.
+
+GitHub: [tobi/qmd](https://github.com/tobi/qmd)
 
 ### Install
 
 ```bash
-npm install -g qmd
+npm install -g @tobilu/qmd
+# or
+bun install -g @tobilu/qmd
 ```
 
-### Configure Collections
-
-Create `~/.config/qmd/index.yml`:
-
-```yaml
-collections:
-  notes:
-    path: ~/workspace/notes
-    patterns: ["**/*.md"]
-  projects:
-    path: ~/workspace/projects
-    patterns: ["**/*.md"]
-```
-
-### Index Content
+### Set Up Collections
 
 ```bash
-qmd index
-```
+# Index your workspace directories
+qmd collection add ~/workspace/notes --name notes
+qmd collection add ~/workspace/projects --name projects
 
-Run after adding significant new content.
+# Add context descriptions (helps search understand your content)
+qmd context add qmd://notes "Daily notes, captures, and personal thoughts"
+qmd context add qmd://projects "Project planning, research, meeting notes, decisions"
+
+# Build vector embeddings for semantic search
+qmd embed
+```
 
 ### Add to Claude Settings
 
@@ -53,6 +50,15 @@ Run after adding significant new content.
 qmd query "topic"              # Best quality (hybrid + reranking)
 qmd search "term" -c notes     # Fast keyword search
 qmd vsearch "concept"          # Semantic vector search
+qmd get "path/to/file" --full  # Get full document
+```
+
+### Re-indexing
+
+After adding significant new content:
+```bash
+qmd embed        # Re-index and rebuild embeddings
+qmd embed -f     # Force full re-embed
 ```
 
 Add a QMD section to `~/.claude/CLAUDE.md` so Claude knows to use it.

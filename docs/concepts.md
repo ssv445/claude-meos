@@ -83,7 +83,7 @@ Claude MEOS uses four layers of memory, each serving a different purpose:
 
 ### Layer 4: QMD (Deep Semantic Search)
 - **What:** Local search engine that indexes all your notes and projects
-- **Where:** `~/.config/qmd/index.yml` (config), indexed content on disk
+- **Where:** `~/.cache/qmd/index.sqlite` (index), collections configured via `qmd collection add`
 - **When loaded:** On demand — Claude queries it when searching for information
 - **Use for:** Finding notes by topic, searching across all projects, answering "what did I write about X?"
 - **Commands:** `qmd query "topic"` (best quality), `qmd search "term"` (fast keyword)

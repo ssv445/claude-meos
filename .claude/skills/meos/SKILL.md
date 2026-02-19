@@ -179,26 +179,27 @@ Use AskUserQuestion:
   - "No, skip for now"
   - "What is QMD?"
 
-**If "What is QMD?":** Explain: "QMD is a local semantic search engine that indexes your notes and projects. It lets Claude search your workspace content using `qmd query 'topic'`. It requires Node.js." Then re-ask.
+**If "What is QMD?":** Explain: "QMD is a local semantic search engine that indexes your notes and projects. It lets Claude search your workspace content using `qmd query 'topic'`. It runs entirely local — no cloud, no API keys. Requires Node.js or Bun." Then re-ask.
 
 **If yes:**
 1. Check if qmd is installed: `which qmd`
-2. If not installed: Run `npm install -g qmd` (confirm with user first)
-3. Create QMD config:
+2. If not installed: Run `npm install -g @tobilu/qmd` (confirm with user first)
+   - Alternative: `bun install -g @tobilu/qmd`
+3. Create collections for the workspace:
 ```bash
-mkdir -p ~/.config/qmd
+qmd collection add [WORKSPACE_PATH]/notes --name notes
+qmd collection add [WORKSPACE_PATH]/projects --name projects
 ```
-4. Write ~/.config/qmd/index.yml:
-```yaml
-collections:
-  notes:
-    path: [WORKSPACE_PATH]/notes
-    patterns: ["**/*.md"]
-  projects:
-    path: [WORKSPACE_PATH]/projects
-    patterns: ["**/*.md"]
+4. Add context descriptions:
+```bash
+qmd context add qmd://notes "Daily notes, captures, and personal thoughts"
+qmd context add qmd://projects "Project planning, research, meeting notes, decisions"
 ```
-5. Copy QMD reference: `[KIT_REPO]/claude-config/references/qmd.md` → `~/.claude/references/qmd.md`
+5. Build initial index and embeddings:
+```bash
+qmd embed
+```
+6. Copy QMD reference: `[KIT_REPO]/claude-config/references/qmd.md` → `~/.claude/references/qmd.md`
 
 ### Step 10: Update Settings (Optional)
 
@@ -243,7 +244,7 @@ Created:
   Workspace:   [WORKSPACE_PATH]/
   Global config: ~/.claude/CLAUDE.md
   Skill:       ~/.claude/skills/meos/
-  [QMD:        ~/.config/qmd/index.yml] (if configured)
+  [QMD:        collections configured] (if set up)
   [Project:    [WORKSPACE_PATH]/projects/[name]/] (if created)
 
 Next steps:

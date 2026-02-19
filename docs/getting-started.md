@@ -89,6 +89,6 @@ Use `/find-skills` to discover and install agents from the community, or create 
 
 ### QMD not working
 1. Check installation: `which qmd`
-2. Install if missing: `npm install -g qmd`
-3. Verify config exists: `cat ~/.config/qmd/index.yml`
-4. Index your content: `qmd index`
+2. Install if missing: `npm install -g @tobilu/qmd`
+3. Check collections: `qmd status`
+4. Re-index: `qmd embed`
